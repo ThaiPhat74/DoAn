@@ -140,17 +140,18 @@ namespace GUI_QLKS
                     Bill b = new Bill(ID, float.Parse(nbDis.Value.ToString()));
                     if (bill.disCount(b))
                     {
-                        MessageBox.Show("Sửa phòng thành công");
+                        MessageBox.Show("Giảm giá thành công");
                         load();
                     }
                     else
                     {
-                        MessageBox.Show("Sua khong thanh cong");
+                        MessageBox.Show("Giảm giá không thành công");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Xin hay nhap day du ");
+                    MessageBox.Show("Xin hãy nhập đầy đủ thông tin" +
+                        "");
                 }
             }
         }

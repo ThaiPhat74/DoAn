@@ -61,7 +61,6 @@
             this.txtAcc.Name = "txtAcc";
             this.txtAcc.Size = new System.Drawing.Size(288, 32);
             this.txtAcc.TabIndex = 1;
-            this.txtAcc.Text = "Admin";
             // 
             // label1
             // 
@@ -80,7 +79,6 @@
             this.txtPass.Name = "txtPass";
             this.txtPass.Size = new System.Drawing.Size(288, 38);
             this.txtPass.TabIndex = 2;
-            this.txtPass.Text = "123";
             this.txtPass.UseSystemPasswordChar = true;
             // 
             // label2
