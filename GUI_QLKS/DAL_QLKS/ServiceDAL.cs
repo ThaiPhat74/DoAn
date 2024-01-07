@@ -24,7 +24,7 @@ namespace DAL_QLKS
         {
             List<Service> list = new List<Service> ();
 
-            string query = "SELECT * FROM dbo.DICHVU WHERE MALDV = "+id;
+            string query = "SELECT * FROM dbo.DICHVU WHERE  STATUS = 1 AND MALDV = " + id;
 
             DataTable dt = DataProvider.Instance.ExecuteQuery (query);
             foreach(DataRow item in dt.Rows)
@@ -48,13 +48,24 @@ namespace DAL_QLKS
             {
                 _conn.Open();
 
-                string query = string.Format("EXEC dbo.ThemDichVu @MLDV = {0}, @Ten = {1},@DonVi = {2}, @Tien = {3}",s.Mldv,s.Ten,s.Donvitinh,s.ThanhTien);
-                SqlCommand cmd = new SqlCommand(query, _conn);
+                //string query = string.Format("EXEC dbo.ThemDichVu @MLDV = {0}, @Ten = {1},@DonVi = {2}, @Tien = {3},@Status = {4}",s.Mldv,s.Ten,s.Donvitinh,s.ThanhTien,s.Status);
+                //SqlCommand cmd = new SqlCommand(query, _conn);
 
-                if (cmd.ExecuteNonQuery() > 0)
-                {
-                    return true;
-                }
+                //if (cmd.ExecuteNonQuery() > 0)
+                //{
+                //    return true;
+                //}
+
+                SqlCommand cmd = new SqlCommand("EXEC dbo.ThemDichVu @MLDV , @Ten ,@DonVi , @Tien ,@Status ", _conn);
+
+                cmd.Parameters.AddWithValue("@MLDV", s.Mldv);
+                cmd.Parameters.AddWithValue("@Ten", s.Ten);
+                cmd.Parameters.AddWithValue("@DonVi", s.Donvitinh);
+                cmd.Parameters.AddWithValue("@Tien", s.ThanhTien);
+                cmd.Parameters.AddWithValue("@Status", s.Status);
+
+                int result = cmd.ExecuteNonQuery(); _conn.Close();
+                return result > 0;
             }
             catch (Exception ex) { }
             finally { _conn.Close(); }
@@ -65,11 +76,22 @@ namespace DAL_QLKS
             try
             {
                 _conn.Open();
-                string SQL = string.Format("EXEC dbo.SuaDichVu @MLDV = {0}, @Ten = {1}, @DonVi = {2}, @Tien = {3}, @Ma = {4}", s.Mldv, s.Ten, s.Donvitinh, s.ThanhTien,s.Mdv);
+                //string SQL = string.Format("EXEC dbo.SuaDichVu @MLDV = {0}, @Ten = {1}, @DonVi = {2}, @Tien = {3}, @Status = {4}, @Ma = {5}", s.Mldv, s.Ten, s.Donvitinh, s.ThanhTien,s.Status,s.Mdv);
 
-                SqlCommand cmd = new SqlCommand(SQL, _conn);
-                if (cmd.ExecuteNonQuery() > 0)
-                    return true;
+                //SqlCommand cmd = new SqlCommand(SQL, _conn);
+                //if (cmd.ExecuteNonQuery() > 0)
+                //    return true;
+
+                SqlCommand cmd = new SqlCommand("EXEC dbo.SuaDichVu @MLDV , @Ten , @DonVi , @Tien , @Status , @Ma ", _conn);
+
+                cmd.Parameters.AddWithValue("@MLDV", s.Mldv);
+                cmd.Parameters.AddWithValue("@Ten", s.Ten);
+                cmd.Parameters.AddWithValue("@DonVi", s.Donvitinh);
+                cmd.Parameters.AddWithValue("@Tien", s.ThanhTien);
+                cmd.Parameters.AddWithValue("@Status", s.Status);
+                cmd.Parameters.AddWithValue("@Ma", s.Mdv);
+                int result = cmd.ExecuteNonQuery(); _conn.Close();
+                return result > 0;
             }
             catch (Exception e) { }
             finally { _conn.Close(); }

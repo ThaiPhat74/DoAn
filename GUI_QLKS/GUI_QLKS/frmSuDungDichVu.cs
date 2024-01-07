@@ -73,14 +73,7 @@ namespace GUI_QLKS
             id = serviceType.Mldv;
             loadServiceByServiceTypeID(id);
 
-            //if (cbDichVu.SelectedItem is Service service)
-            //{
-            //    txtTenDV_SDDV.Text = service.Ten;
-            //}
-            //else
-            //{
-            //    txtTenDV_SDDV.Text = ""; // Hoặc xử lý tùy ý nếu giá trị không tồn tại
-            //}
+            
         }
 
         private void btnThem_Click(object sender, EventArgs e)
@@ -92,7 +85,7 @@ namespace GUI_QLKS
 
                 if (uod.ThemUOS(uos))
                 {
-                    MessageBox.Show("Thêm phòng thành công");
+                    MessageBox.Show("Thêm dịch vụ thành công");
                     load(int.Parse(txtHD_SDDV.Text));
                 }
                 else
@@ -105,5 +98,15 @@ namespace GUI_QLKS
                 MessageBox.Show("Xin hãy nhập đủ thông tin");
             }
         }
+
+        private void frmSuDungDichVu_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Hide();
+            frmQuanLy frm = new frmQuanLy();
+            this.Close();
+            frm.loadRoom();
+        }
+
+        
     }
 }

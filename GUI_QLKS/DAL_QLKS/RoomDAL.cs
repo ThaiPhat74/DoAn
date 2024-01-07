@@ -81,13 +81,23 @@ namespace DAL_QLKS
             {
                 _conn.Open();
 
-                string query = string.Format("EXEC dbo.ThemPhong @MaLoai = {0}, @Ten = {1} , @TrangThai = {2}, @TTP = {3}", p.IDLoai,p.Ten,p.TrangThai,p.Tinhtrang);
-                SqlCommand cmd = new SqlCommand(query, _conn);
+                //string query = string.Format("EXEC dbo.ThemPhong @MaLoai = {0}, @Ten = {1} , @TrangThai = {2}, @TTP = {3}", p.IDLoai,p.Ten,p.TrangThai,p.Tinhtrang);
+                //SqlCommand cmd = new SqlCommand(query, _conn);
 
-                if (cmd.ExecuteNonQuery() > 0)
-                {
-                    return true;
-                }
+                //if (cmd.ExecuteNonQuery() > 0)
+                //{
+                //    return true;
+                //}
+
+                SqlCommand cmd = new SqlCommand("EXEC dbo.ThemPhong @MaLoai , @Ten , @TrangThai , @TTP ", _conn);
+
+                cmd.Parameters.AddWithValue("@MaLoai", p.IDLoai);
+                cmd.Parameters.AddWithValue("@Ten", p.Ten);
+                cmd.Parameters.AddWithValue("@TrangThai", p.TrangThai);
+                cmd.Parameters.AddWithValue("@TTP", p.Tinhtrang);
+                
+                int result = cmd.ExecuteNonQuery(); _conn.Close();
+                return result > 0;
             }
             catch (Exception ex) { }
             finally { _conn.Close(); }
@@ -99,11 +109,23 @@ namespace DAL_QLKS
             {
                 _conn.Open();
                 string SQL = string.Format("EXEC dbo.SuaPhong @MaLoai = {0}, @Ten = {1}, @TrangThai = {2},@TTP = {3}, @Ma ={4}",
-                                            phong.IDLoai, phong.Ten, phong.TrangThai,phong.Tinhtrang, phong.ID);
+                                            phong.IDLoai, phong.Ten, phong.TrangThai, phong.Tinhtrang, phong.ID);
 
                 SqlCommand cmd = new SqlCommand(SQL, _conn);
                 if (cmd.ExecuteNonQuery() > 0)
                     return true;
+
+                //_conn.Open();
+                //SqlCommand cmd = new SqlCommand("EXEC dbo.SuaPhong @MaLoai , @Ten , @TrangThai , @TTP , @Ma ", _conn);
+
+                //cmd.Parameters.AddWithValue("@MaLoai", phong.IDLoai);
+                //cmd.Parameters.AddWithValue("@Ten", phong.Ten);
+                //cmd.Parameters.AddWithValue("@TrangThai", phong.TrangThai);
+                //cmd.Parameters.AddWithValue("@TTP", phong.Tinhtrang);
+                //cmd.Parameters.AddWithValue("@Ma", phong.ID);
+
+                //int result = cmd.ExecuteNonQuery(); _conn.Close();
+                //return result > 0;
             }
             catch (Exception e) { }
             finally { _conn.Close(); }
@@ -147,6 +169,22 @@ namespace DAL_QLKS
         public void DoiPhong(int id1,int id2)
         {
             DataProvider.Instance.ExecuteQuery("EXEC dbo.ChuyenPhong @idPhong1 , @idPhong2", new object[] { id1, id2 });
+        }
+        public bool LayPhong(int id)
+        {
+            try
+            {
+                _conn.Open();
+
+                SqlCommand cmd = new SqlCommand("EXEC dbo.LayPhong @id ", _conn);
+
+                cmd.Parameters.AddWithValue("@id", id);
+                int result = cmd.ExecuteNonQuery(); _conn.Close();
+                return result > 0;
+            }
+            catch (Exception ex) { }
+            finally { _conn.Close(); }
+            return false;
         }
     }
 }

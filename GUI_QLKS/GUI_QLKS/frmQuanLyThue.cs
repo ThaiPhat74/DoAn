@@ -1,4 +1,5 @@
 ﻿using DAL_QLKS;
+using DAO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,12 +23,12 @@ namespace GUI_QLKS
         }
         ThuePhongDAL thue = new ThuePhongDAL();
         BillDAL bill = new BillDAL();
-        SaleDAL sale = new SaleDAL();   
+        SaleDAL sale = new SaleDAL();
         UOServiceDAL uos = new UOServiceDAL();
 
         void customDTPK()
         {
-            
+
             dtpkNgayIn_Bill.Format = DateTimePickerFormat.Custom;
             dtpkNgayIn_Bill.CustomFormat = "dd/MM/yyyy";
             dtpkFrom.Format = DateTimePickerFormat.Custom;
@@ -38,30 +39,38 @@ namespace GUI_QLKS
             dtpkCI_TP.CustomFormat = "dd/MM/yyyy hh:mm:ss";
             dtpkCO_TP.Format = DateTimePickerFormat.Custom;
             dtpkCO_TP.CustomFormat = "dd/MM/yyyy hh:mm:ss";
-        }
-        
-        private void frmQuanLyThue_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            frmQuanLy f = new frmQuanLy();
-            this.Hide();
-            f.ShowDialog();
-            f = null;
-            this.Close();
-        }
 
+        }
         void load()
         {
-            dtgvThue.DataSource = thue.getRent();
-            dtgvBill.DataSource = bill.getAllHoaDon();
-            dtgvSale.DataSource = sale.getDoanhThu();
-            dtgvUODV.DataSource = uos.getUOService();
-            
+            BindingSource source1 = new BindingSource();
+            source1.DataSource = thue.getRent();
+            dtgvThue.DataSource = source1;
+            bindingRent.BindingSource = source1;
+
+
+            BindingSource source2 = new BindingSource();
+            source2.DataSource = bill.getAllHoaDon();
+            dtgvBill.DataSource = source2;
+            bindingBill.BindingSource = source2;
+
+
+            BindingSource source3 = new BindingSource();
+            source3.DataSource = sale.getDoanhThu();
+            dtgvSale.DataSource = source3;
+            bingdingReport.BindingSource = source3;
+
+
+            BindingSource source4 = new BindingSource();
+            source4.DataSource = uos.getUOService();
+            dtgvUODV.DataSource = source4;
+            bindingUOS.BindingSource = source4;
+
         }
         #region ThongKe
         private void btnTK_Click(object sender, EventArgs e)
         {
-            dtgvSale.DataSource = sale.ThongKeAdenB(dtpkFrom.Value,dtpkTo.Value);
-
+            LoadFullReport(dtpkFrom.Value, dtpkTo.Value);
         }
         private void dtgvSale_CellFormatting(object sender, DataGridViewCellFormattingEventArgs e)
         {
@@ -75,6 +84,40 @@ namespace GUI_QLKS
                 }
             }
         }
+
+        private DataTable GetFulReport(DateTime from, DateTime to)
+        {
+            return SaleDAL.Instance.ThongKeAdenB(from, to);
+        }
+
+        private void LoadFullReport(DateTime from, DateTime to)
+        {
+            this.dtpkFrom.Value = from;
+            this.dtpkTo.Value = to;
+            DataTable table = GetFulReport(from, to);
+            BindingSource source = new BindingSource();
+            //ChangePrice(table);
+            source.DataSource = table;
+            dtgvSale.DataSource = source;
+            bingdingReport.BindingSource = source;
+            DrawChart(source);
+            GC.Collect();
+        }
+        private void DrawChart(BindingSource source)
+        {
+            reportChar.DataSource = source;
+            reportChar.DataBind();
+            reportChar.ChartAreas[0].AxisX.LabelStyle.Format = "dd/MM";
+            foreach (DataPoint item in reportChar.Series[0].Points)
+            {
+                if (item.YValues[0] == 0)
+                {
+                    item.Label = " ";
+                }
+                
+            }
+        }
+
         #endregion
 
         #region HoaDon
@@ -116,8 +159,10 @@ namespace GUI_QLKS
 
         private void btnTim_TP_Click(object sender, EventArgs e)
         {
-            if (txtTimTP.Text != "")
+            if (txtTimTP.Text != "" && txtTimTP_id.Text =="")
                 dtgvThue.DataSource = thue.TimTheoTen2(txtTimTP.Text);
+            else if (txtTimTP_id.Text != "" && txtTimTP.Text == "")
+                dtgvThue.DataSource = thue.TimTheoIdBill(int.Parse(txtTimTP_id.Text));
             else
                 dtgvThue.DataSource = thue.getRent();
         }
@@ -128,8 +173,10 @@ namespace GUI_QLKS
         #region SuDungDichVu
         private void btnTim_SDDV_Click(object sender, EventArgs e)
         {
-            if (txtTim_SDDV.Text != "")
-                dtgvUODV.DataSource = uos.getUOSByID(txtTim_SDDV.Text);
+            if (txtTim_SDDV.Text != "" && txtTimSDDV_ID.Text == "")
+                dtgvUODV.DataSource = uos.getUOSByName(txtTim_SDDV.Text);
+            else if (txtTimSDDV_ID.Text != "" && txtTim_SDDV.Text == "")
+                dtgvUODV.DataSource = uos.getUOSByID(int.Parse(txtTimSDDV_ID.Text));
             else
                 dtgvUODV.DataSource = uos.getUOService();
         }
@@ -140,14 +187,14 @@ namespace GUI_QLKS
             try
             {
                 DataGridViewRow row = dtgvBill.SelectedRows[0];
-                txtIdBill.Text = row.Cells[0].Value.ToString();
-                txtMDT_Bill.Text = row.Cells[1].Value.ToString();
-                txtMaDN.Text = row.Cells[2].Value.ToString();
-                dtpkNgayIn_Bill.Text = row.Cells[3].Value.ToString();
-                txtNote_Bill.Text = row.Cells[4].Value.ToString();
-                txtTongTien_Bill.Text = row.Cells[5].Value.ToString();
+                txtIdBill.Text = row.Cells[0].Value?.ToString();
+                txtMDT_Bill.Text = row.Cells[1].Value?.ToString();
+                txtMaDN.Text = row.Cells[2].Value?.ToString();
+                dtpkNgayIn_Bill.Text = row.Cells[3].Value?.ToString();
+                txtNote_Bill.Text = row.Cells[4].Value?.ToString();
+                txtTongTien_Bill.Text = row.Cells[5].Value?.ToString();
                 ckbTT.Visible = row.Cells[6].Visible;
-                txtDiscount.Text = row.Cells[7].Value.ToString();
+                txtDiscount.Text = row.Cells[7].Value?.ToString();
             }
             catch { Exception ex; }
         }
@@ -181,8 +228,40 @@ namespace GUI_QLKS
             }
         }
 
-        private void frmQuanLyThue_Load(object sender, EventArgs e)
+        private void btnExcel_Click(object sender, EventArgs e)
         {
+            saveReport.FileName = "Doanh thu tháng " + dtpkFrom.Value + '-' + dtpkTo.Value;
+            if (saveReport.ShowDialog() == DialogResult.Cancel)
+                return;
+            else
+            {
+                bool check;
+                try
+                {
+                    switch (saveReport.FilterIndex)
+                    {
+                        case 2:
+                            check = ExportToExcel.Instance.Export(dtgvSale, saveReport.FileName, ModeExportToExcel.XLSX);
+                            break;
+                        case 3:
+                            check = ExportToExcel.Instance.Export(dtgvSale, saveReport.FileName, ModeExportToExcel.PDF);
+                            break;
+                        default:
+                            check = ExportToExcel.Instance.Export(dtgvSale, saveReport.FileName, ModeExportToExcel.XLS);
+                            break;
+                    }
+                    if (check)
+                        MessageBox.Show("Xuất thành công", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    else
+                        MessageBox.Show("Lỗi xuất thất bại", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch
+                {
+                    MessageBox.Show("Lỗi (Cần cài đặt Office)", "Thông Báo", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
         }
+
+       
     }
 }

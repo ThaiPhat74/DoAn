@@ -20,45 +20,45 @@ namespace GUI_QLKS
 
         private void frmLog_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if(MessageBox.Show("Bạn có muốn thoát","Thông báo",MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
-            {
-                e.Cancel = true;
-            }    
+            //if(MessageBox.Show("Bạn có muốn thoát","Thông báo",MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
+            //{
+            //    e.Cancel = true;
+            //}    
         }
-
-        private void button1_Click(object sender, EventArgs e)
+        public bool Login(string user,string pass)
         {
-            string userName = txtAcc.Text;
-            string passWord = txtPass.Text;
-            if (Login(userName,passWord))
+                
+            return AccountDAL.Instance.Login(user,pass);
+        }
+        private void btnLogin_Click(object sender, EventArgs e)
+        {
+            if (Login(txtAcc.Text,txtPass.Text))
             {
                 this.Hide();
                 frmQuanLy fql = new frmQuanLy();
+                fql.setName(txtAcc.Text.Trim());
                 fql.ShowDialog();
                 this.Close();
             }
             else
             {
                 MessageBox.Show("Sai tên tài khoản hoặc mật khẩu!");
-            }    
-        }
-        bool Login(string userName,string passWord)
-        {
-            return AccountDAL.Instance.Login(userName,passWord);
+            }
         }
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Bạn có muốn thoát không?", "Thông báo", MessageBoxButtons.OKCancel);
-            if(result == DialogResult.OK) 
-            {
-                Application.Exit();
-            }
+            //DialogResult result = MessageBox.Show("Bạn có muốn thoát không?", "Thông báo", MessageBoxButtons.OKCancel);
+            //if(result == DialogResult.OK) 
+            //{
+            //    Application.Exit();
+            //}
         }
-        public string Ten()
+
+        private void txtPass_KeyPress(object sender, KeyPressEventArgs e)
         {
-            string t = txtAcc.Text;
-            return t;
+            if (e.KeyChar == 13)
+                btnLogin_Click(sender, null);
         }
     }
 }

@@ -223,6 +223,7 @@
     <Compile Include="Account.cs" />
     <Compile Include="Bill.cs" />
     <Compile Include="BillInfo.cs" />
+    <Compile Include="BillReportDTO.cs" />
     <Compile Include="Customer.cs" />
     <Compile Include="Cus_rent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

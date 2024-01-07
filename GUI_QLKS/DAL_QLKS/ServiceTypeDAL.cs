@@ -47,13 +47,20 @@ namespace DAL_QLKS
             {
                 _conn.Open();
 
-                string query = string.Format("EXEC dbo.ThemLoaiDichVu @Ten = {0}",s.Name);
-                SqlCommand cmd = new SqlCommand(query, _conn);
+                //string query = string.Format("EXEC dbo.ThemLoaiDichVu @Ten = {0}",s.Name);
+                //SqlCommand cmd = new SqlCommand(query, _conn);
 
-                if (cmd.ExecuteNonQuery() > 0)
-                {
-                    return true;
-                }
+                //if (cmd.ExecuteNonQuery() > 0)
+                //{
+                //    return true;
+                //}
+
+                SqlCommand cmd = new SqlCommand("EXEC dbo.ThemLoaiDichVu @Ten  ", _conn);
+
+                cmd.Parameters.AddWithValue("@Ten", s.Name);
+                
+                int result = cmd.ExecuteNonQuery(); _conn.Close();
+                return result > 0;
             }
             catch (Exception ex) { }
             finally { _conn.Close(); }
@@ -64,11 +71,18 @@ namespace DAL_QLKS
             try
             {
                 _conn.Open();
-                string SQL = string.Format("EXEC dbo.SuaLoaiDichVu @Ten = {0},@Ma={1} ", s.Name,s.Mldv);
+                //string SQL = string.Format("EXEC dbo.SuaLoaiDichVu @Ten = {0},@Ma={1} ", s.Name,s.Mldv);
 
-                SqlCommand cmd = new SqlCommand(SQL, _conn);
-                if (cmd.ExecuteNonQuery() > 0)
-                    return true;
+                //SqlCommand cmd = new SqlCommand(SQL, _conn);
+                //if (cmd.ExecuteNonQuery() > 0)
+                //    return true;
+
+                SqlCommand cmd = new SqlCommand("EXEC dbo.SuaLoaiDichVu @Ten ,@Ma ", _conn);
+
+                cmd.Parameters.AddWithValue("@Ten", s.Name);
+                cmd.Parameters.AddWithValue("@Ma", s.Mldv);
+                int result = cmd.ExecuteNonQuery(); _conn.Close();
+                return result > 0;
             }
             catch (Exception e) { }
             finally { _conn.Close(); }
@@ -79,7 +93,7 @@ namespace DAL_QLKS
             try
             {
                 _conn.Open();
-                string SQL = string.Format("EXEC dbo.XoaLoaiDichVu @Ma = {0}", KDv_ID);
+                string SQL = string.Format("EXEC dbo.XoaLoaiDichVu @id = {0}", KDv_ID);
 
                 SqlCommand cmd = new SqlCommand(SQL, _conn);
                 if (cmd.ExecuteNonQuery() > 0)

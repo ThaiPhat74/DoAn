@@ -37,7 +37,10 @@ namespace DTO
         {
             this.trangThai=trangThai;
         }
-
+        public Room(int id)
+        {
+            this.ID = id;
+        }
 
         public int ID { get => iD; set => iD=value; }
         public int IDLoai { get => iDLoai; set => iDLoai=value; }

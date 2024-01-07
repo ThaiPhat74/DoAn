@@ -45,6 +45,14 @@ namespace DTO
             this.pay = pay;
             this.note = note;
         }
+        public Rent( int idPhong, DateTime ci, DateTime co, string pay, string note)
+        {
+            this.IDPhong = idPhong;
+            this.CI = ci;
+            this.CO = co;
+            this.pay = pay;
+            this.note = note;
+        }
         public Rent(DataRow r)
         {
             this.IDHD = (int)r["MAHOADON"];

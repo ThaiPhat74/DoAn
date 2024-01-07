@@ -139,13 +139,76 @@ namespace DAL_QLKS
             finally { _conn.Close(); }
             return false;
         }
-        
+        public bool thuePhongKhongThongTin(Rent r)
+        {
+            try
+            {
+                _conn.Open();
+
+                SqlCommand cmd = new SqlCommand("EXEC dbo.ThemThuePhongKhongThongTin @MaPhong,@CI,@CO,@TT,@Note", _conn);
+
+                cmd.Parameters.AddWithValue("@MaPhong", r.IDPhong);
+                cmd.Parameters.AddWithValue("@CI", r.CI);
+                cmd.Parameters.AddWithValue("@CO", r.CO);
+                cmd.Parameters.AddWithValue("@TT", r.Pay);
+                cmd.Parameters.AddWithValue("@Note", r.Note);
+                if (cmd.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex) { }
+            finally { _conn.Close(); }
+            return false;
+        }
+
+        public bool bookPhong(Rent r)
+        {
+            try
+            {
+                _conn.Open();
+
+                SqlCommand cmd = new SqlCommand("EXEC dbo.BookRoom @MaKhach,@MaPhong,@CI,@CO,@TT,@Note", _conn);
+
+                cmd.Parameters.AddWithValue("@MaKhach", r.IDKhach);
+                cmd.Parameters.AddWithValue("@MaPhong", r.IDPhong);
+                cmd.Parameters.AddWithValue("@CI", r.CI);
+                cmd.Parameters.AddWithValue("@CO", r.CO);
+                cmd.Parameters.AddWithValue("@TT", r.Pay);
+                cmd.Parameters.AddWithValue("@Note", r.Note);
+                if (cmd.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex) { }
+            finally { _conn.Close(); }
+            return false;
+        }
+
         public bool ThanhToan(Rent r)
         {
             try
             {
                 _conn.Open();
                 string SQL = string.Format("EXEC dbo.ThanhToan @idPhong = {0}, @idHoaDon = {1}",r.IDPhong,r.IDHD);
+
+                SqlCommand cmd = new SqlCommand(SQL, _conn);
+                if (cmd.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+            }
+            catch (Exception e) { }
+            finally { _conn.Close(); }
+            return false;
+        }
+        public bool CancelBook(int id)
+        {
+            try
+            {
+                _conn.Open();
+                string SQL = string.Format("EXEC dbo.CancelBook @id = {0}", id);
 
                 SqlCommand cmd = new SqlCommand(SQL, _conn);
                 if (cmd.ExecuteNonQuery() > 0)
@@ -172,6 +235,21 @@ namespace DAL_QLKS
             finally { _conn.Close(); }
             return false;
         }
+        public bool checkOutByBill(Rent r)
+        {
+            try
+            {
+                _conn.Open();
+                string SQL = string.Format("EXEC dbo.CheckOUTByBill @id = {0}, @idPhong = {1}", r.IDHD, r.IDPhong);
+
+                SqlCommand cmd = new SqlCommand(SQL, _conn);
+                if (cmd.ExecuteNonQuery() > 0)
+                    return true;
+            }
+            catch (Exception e) { }
+            finally { _conn.Close(); }
+            return false;
+        }
         public DataTable TimTheoTen2(string Ten)
         {
             try
@@ -188,6 +266,47 @@ namespace DAL_QLKS
             catch (Exception e) { }
             finally { _conn.Close(); }
             return null;
+        }
+        public DataTable TimTheoIdBill(int id)
+        {
+            try
+            {
+                string SQL = string.Format("EXEC dbo.RentByIDBill @id = {0}", id);
+                _conn.Open();
+                SqlCommand cmd = new SqlCommand(SQL, _conn);
+
+                SqlDataAdapter adap = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adap.Fill(dt);
+                return dt;
+            }
+            catch (Exception e) { }
+            finally { _conn.Close(); }
+            return null;
+        }
+        public bool UpdatebookPhong(Rent r)
+        {
+            try
+            {
+                _conn.Open();
+
+                SqlCommand cmd = new SqlCommand("EXEC dbo.UpdateBookPhong @makhach ,@maphong ,@ci ,@co , @tt , @note , @mahd ", _conn);
+
+                cmd.Parameters.AddWithValue("@makhach", r.IDKhach);
+                cmd.Parameters.AddWithValue("@maphong", r.IDPhong);
+                cmd.Parameters.AddWithValue("@ci", r.CI);
+                cmd.Parameters.AddWithValue("@co", r.CO);
+                cmd.Parameters.AddWithValue("@tt", r.Pay);
+                cmd.Parameters.AddWithValue("@note", r.Note);
+                cmd.Parameters.AddWithValue("@mahd", r.IDHD);
+                if (cmd.ExecuteNonQuery() > 0)
+                {
+                    return true;
+                }
+            }
+            catch (Exception ex) { }
+            finally { _conn.Close(); }
+            return false;
         }
     }
     }

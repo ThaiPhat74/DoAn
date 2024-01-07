@@ -15,6 +15,11 @@ namespace GUI_QLKS
 {
     public partial class frmQuanLy : Form
     {
+        #region frm
+        private frmThue frmthue;
+        private fadmin frmqlcsvc;
+        private frmQuanLyThue frmQuanLyThue;
+        #endregion
         RoomDAL r = new RoomDAL();
         public frmQuanLy()
         {
@@ -25,6 +30,17 @@ namespace GUI_QLKS
         }
 
         #region method
+        private void loadMenu()
+        {
+            if (lbTenDangNhap.Text.Trim() != "admin" && lbTenDangNhap.Text.Trim() != "Admin")
+            {
+                menuCSVC.Enabled = false;
+            }
+            else
+            {
+                 menuCSVC.Enabled = true;
+            }
+        }
         public void loadRoom()
         {
             flpnPhong.Controls.Clear();
@@ -64,59 +80,64 @@ namespace GUI_QLKS
 
 
         #region Events
-
-
         void btn_Click(object sender, EventArgs e)
         {
             int id = ((sender as Button).Tag as Room).ID;
 
             string ten = ((sender as Button).Tag as Room).Ten;
 
-            this.Hide();
-            frmThue frmThue = new frmThue();
-            frmThue.SetButtonID(id,ten);
-            frmThue.ShowDialog();
-
-            this.Close();
+            //this.Hide();
+            frmthue = new frmThue();
+            frmthue.SetButtonID(id,ten);
+            frmthue.Show();
+            frmthue.FormClosed += frmthue_FormClosed;
+            //this.Close();
         }
+        private void frmthue_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Show();
+            loadRoom();
+            LoadComboboxRoom(cbRoomFrom);
+            LoadComboboxRoom(cbRoomTo);
 
+        }
+        public void setName(string ten)
+        {
+            lbTenDangNhap.Text = ten.ToString().Trim();
+            loadMenu();
+        }
         private void adminToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Hide();
-            fadmin admin = new fadmin();
-            admin.ShowDialog();
-            this.Close();
+            frmqlcsvc = new fadmin();
+            frmqlcsvc.Show();
+            frmqlcsvc.FormClosed += frmqlcsvc_FormClosed;
         }
-
+        private void frmqlcsvc_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Show();
+            loadRoom();
+            LoadComboboxRoom(cbRoomFrom);
+            LoadComboboxRoom(cbRoomTo);
+        }
+        private void menuDV_Click(object sender, EventArgs e)
+        {
+            frmQuanLyThue = new frmQuanLyThue();
+            frmQuanLyThue.Show();
+            frmQuanLyThue.FormClosed += frmqlQuanLyThue_FormClosed;
+        }
+        private void frmqlQuanLyThue_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Show();
+            loadRoom();
+            LoadComboboxRoom(cbRoomFrom);
+            LoadComboboxRoom(cbRoomTo);
+        }
         private void frmQuanLy_Load(object sender, EventArgs e)
         {
             frmLog f = new frmLog();
-            lbTenDangNhap.Text = f.Ten();
             loadRoom();
-        }
-
-        private void quảnLýThuêPhòngToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            this.Hide();
-            frmQuanLyThue thue = new frmQuanLyThue();
-            thue.ShowDialog();
-            this.Close();
-        }
-
-       
-        #endregion
-
-        private void frmQuanLy_FormClosing(object sender, FormClosingEventArgs e)
-        {
-            if (MessageBox.Show("Bạn có muốn thoát", "Thông báo", MessageBoxButtons.OKCancel) != System.Windows.Forms.DialogResult.OK)
-            {
-                e.Cancel = true;
-            }
-        }
-
-        private void btnResetRoom_Click(object sender, EventArgs e)
-        {
-            loadRoom();
+            LoadComboboxRoom(cbRoomFrom);
+            LoadComboboxRoom(cbRoomTo);
         }
 
         private void btnChuyenPhong_Click(object sender, EventArgs e)
@@ -137,5 +158,14 @@ namespace GUI_QLKS
             log.ShowDialog();
             this.Close();
         }
+
+        private void frmQuanLy_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            this.Hide();
+            frmLog log = new frmLog();
+            log.ShowDialog();
+            this.Close();
+        }
+        #endregion
     }
 }

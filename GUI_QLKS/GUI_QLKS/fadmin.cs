@@ -45,14 +45,6 @@ namespace GUI_QLKS
         }
 
         
-        private void fadmin_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            frmQuanLy f = new frmQuanLy();
-            this.Hide();
-            f.ShowDialog();
-            f = null;
-            this.Close();
-        }
         void customDTPK()
         {
             dtpkNS_KH.Format = DateTimePickerFormat.Custom;
@@ -71,42 +63,19 @@ namespace GUI_QLKS
         }
         private void btnThemPhong_Click(object sender, EventArgs e)
         {
-            if (txtTenPhong_Phong.Text != "" && cbTTTP_Phong.Text != "" && txtIDLoaiPhong_Phong.Text != "")
+            try
             {
-                Room ph = new Room(0, int.Parse(txtIDLoaiPhong_Phong.Text.Trim()), txtTenPhong_Phong.Text.Trim(), cbTTTP_Phong.Text.Trim(), chboxTTP_Phong.Visible);
-                if (r.themPhong(ph))
+                if (txtTenPhong_Phong.Text != "" && cbTTTP_Phong.Text != "" && txtIDLoaiPhong_Phong.Text != "")
                 {
-                    MessageBox.Show("Thêm phòng thành công");
-                    dtgvRoom.DataSource = r.getPhong();
-                }
-                else
-                {
-                    MessageBox.Show("Thêm không thành công");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Xin hãy nhập đủ thông tin");
-            }
-        }
-        private void btnSuaPhong_Click(object sender, EventArgs e)
-        {
-            if (dtgvRoom.SelectedRows.Count > 0)
-            {
-                if (txtTenPhong_Phong.Text != "" && cbTTTP_Phong.Text != "" && txtIDLoaiPhong_Phong.Text !="" && txtIdPhong_Phong.Text !="" )
-                {
-                    DataGridViewRow row = dtgvRoom.SelectedRows[0];
-                    int ID = Convert.ToInt16(row.Cells[0].Value.ToString());
-
-                    Room ph = new Room(ID, int.Parse(txtIDLoaiPhong_Phong.Text.Trim()), txtTenPhong_Phong.Text.Trim(), cbTTTP_Phong.Text.Trim(), chboxTTP_Phong.Checked);
-                    if (r.suaPhong(ph))
+                    Room ph = new Room(0, int.Parse(txtIDLoaiPhong_Phong.Text.Trim()), txtTenPhong_Phong.Text.Trim(), cbTTTP_Phong.Text.Trim(), chboxTTP_Phong.Checked);
+                    if (r.themPhong(ph))
                     {
-                        MessageBox.Show("Sửa phòng thành công");
+                        MessageBox.Show("Thêm phòng thành công");
                         dtgvRoom.DataSource = r.getPhong();
                     }
                     else
                     {
-                        MessageBox.Show("Sua phòng thất bại");
+                        MessageBox.Show("Thêm không thành công");
                     }
                 }
                 else
@@ -114,15 +83,45 @@ namespace GUI_QLKS
                     MessageBox.Show("Xin hãy nhập đủ thông tin");
                 }
             }
-            else
-            {
-                MessageBox.Show("Hãy chọn phòng bạn muốn sửa");
-            }
+            catch { Exception ex; }
         }
+        private void btnSuaPhong_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dtgvRoom.SelectedRows.Count > 0)
+                {
+                    if (txtTenPhong_Phong.Text != "" && cbTTTP_Phong.Text != "" && txtIDLoaiPhong_Phong.Text != "" && txtIdPhong_Phong.Text != "")
+                    {
+                        DataGridViewRow row = dtgvRoom.SelectedRows[0];
+                        int ID = Convert.ToInt16(row.Cells[0].Value.ToString());
 
+                        Room ph = new Room(ID, int.Parse(txtIDLoaiPhong_Phong.Text.Trim()), txtTenPhong_Phong.Text.Trim(), cbTTTP_Phong.Text.Trim(), chboxTTP_Phong.Checked);
+                        if (r.suaPhong(ph))
+                        {
+                            MessageBox.Show("Sửa phòng thành công");
+                            dtgvRoom.DataSource = r.getPhong();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sua phòng thất bại");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xin hãy nhập đủ thông tin");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Hãy chọn phòng bạn muốn sửa");
+                }
+            }
+            catch { Exception ex; }
+        }
         private void btnXoaPhong_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("Nếu xoá thông tin phòng, bạn sẽ xoá tất cả thông tin liên quan.\nBạn có thật sự muốn xoá không?", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show("Nếu xoá thông tin phòng, bạn sẽ xoá tất cả thông tin liên quan như thông tin thuê phòng và hoá đơn.\nBạn có thật sự muốn xoá không?", "Cảnh báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
 
             if (result == DialogResult.OK)
             {
@@ -159,10 +158,10 @@ namespace GUI_QLKS
             try
             {
                 DataGridViewRow row = dtgvRoom.SelectedRows[0];
-                txtIdPhong_Phong.Text = row.Cells[0].Value.ToString();
-                txtIDLoaiPhong_Phong.Text = row.Cells[1].Value.ToString();
-                txtTenPhong_Phong.Text = row.Cells[2].Value.ToString();
-                cbTTTP_Phong.Text = row.Cells[4].Value.ToString();
+                txtIdPhong_Phong.Text = row.Cells[0].Value?.ToString();
+                txtIDLoaiPhong_Phong.Text = row.Cells[1].Value?.ToString();
+                txtTenPhong_Phong.Text = row.Cells[2].Value?.ToString();
+                cbTTTP_Phong.Text = row.Cells[4].Value?.ToString();
                 chboxTTP_Phong.Visible = row.Cells[3].Visible;
             }
             catch { Exception ex; }
@@ -174,60 +173,70 @@ namespace GUI_QLKS
             else
                 dtgvRoom.DataSource = r.getPhong();
         }
+        
         #endregion
 
         #region LoaiPhong
         private void btnThemLoai_Click(object sender, EventArgs e)
         {
-            if (txtTenLoai_LoaiPhong.Text != "" && txtMoTa_LP.Text != "" && txtSoGiuong_LP.Text != "" && txtTienGio_LP.Text != "" && txtTienNgay_LP.Text != "")
+            try
             {
-                RoomType rt = new RoomType(0, txtTenLoai_LoaiPhong.Text.Trim(), txtMoTa_LP.Text.Trim(), int.Parse(txtSoGiuong_LP.Text.Trim()), float.Parse(txtTienGio_LP.Text.Trim()), float.Parse(txtTienNgay_LP.Text.Trim()));
-                
-                if (RoomTypeDAL.themLoaiPhong(rt))
+                if (txtTenLoai_LoaiPhong.Text != "" && txtMoTa_LP.Text != "" && txtSoGiuong_LP.Text != "" && txtTienGio_LP.Text != "" && txtTienNgay_LP.Text != "")
                 {
-                    MessageBox.Show("Thêm loại phòng thành công");
-                    dtgvLoai_LoaiPhong.DataSource = RoomTypeDAL.getLoaiPhong();
-                }
-                else
-                {
-                    MessageBox.Show("Thêm không thành công");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Xin hãy nhập đủ thông tin");
-            }
-        }
+                    RoomType rt = new RoomType(0, txtTenLoai_LoaiPhong.Text.Trim(), txtMoTa_LP.Text.Trim(), int.Parse(txtSoGiuong_LP.Text.Trim()), float.Parse(txtTienGio_LP.Text.Trim()), float.Parse(txtTienNgay_LP.Text.Trim()));
 
-        private void btnSuaLoai_Click(object sender, EventArgs e)
-        {
-            if (dtgvLoai_LoaiPhong.SelectedRows.Count > 0)
-            {
-                if (txtTenLoai_LoaiPhong.Text != "" && txtMoTa_LP.Text != "" && txtSoGiuong_LP.Text != "" && txtTienGio_LP.Text != "" && txtTienNgay_LP.Text != "" && txtIdLoai.Text != "")
-                {
-                    DataGridViewRow row = dtgvLoai_LoaiPhong.SelectedRows[0];
-                    int ID = Convert.ToInt16(row.Cells[0].Value.ToString());
-
-                    RoomType rt = new RoomType(int.Parse(txtIdLoai.Text.Trim()), txtTenLoai_LoaiPhong.Text.Trim(), txtMoTa_LP.Text.Trim(), int.Parse(txtSoGiuong_LP.Text.Trim()), float.Parse(txtTienGio_LP.Text.Trim()), float.Parse(txtTienNgay_LP.Text.Trim()));
-                    if (RoomTypeDAL.suaLoaiPhong(rt))
+                    if (RoomTypeDAL.themLoaiPhong(rt))
                     {
-                        MessageBox.Show("Sửa loại phòng thành công");
+                        MessageBox.Show("Thêm loại phòng thành công");
                         dtgvLoai_LoaiPhong.DataSource = RoomTypeDAL.getLoaiPhong();
                     }
                     else
                     {
-                        MessageBox.Show("Sửa không thành công");
+                        MessageBox.Show("Thêm không thành công");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Xin hãy nhập đầy đủ thông tin");
+                    MessageBox.Show("Xin hãy nhập đủ thông tin");
                 }
             }
-            else
+            catch { Exception ex; }
+            
+        }
+
+        private void btnSuaLoai_Click(object sender, EventArgs e)
+        {
+            try
             {
-                MessageBox.Show("Hãy chọn thành viên muốn sửa");
+                if (dtgvLoai_LoaiPhong.SelectedRows.Count > 0)
+                {
+                    if (txtTenLoai_LoaiPhong.Text != "" && txtMoTa_LP.Text != "" && txtSoGiuong_LP.Text != "" && txtTienGio_LP.Text != "" && txtTienNgay_LP.Text != "" && txtIdLoai.Text != "")
+                    {
+                        DataGridViewRow row = dtgvLoai_LoaiPhong.SelectedRows[0];
+                        int ID = Convert.ToInt16(row.Cells[0].Value.ToString());
+
+                        RoomType rt = new RoomType(int.Parse(txtIdLoai.Text.Trim()), txtTenLoai_LoaiPhong.Text.Trim(), txtMoTa_LP.Text.Trim(), int.Parse(txtSoGiuong_LP.Text.Trim()), float.Parse(txtTienGio_LP.Text.Trim()), float.Parse(txtTienNgay_LP.Text.Trim()));
+                        if (RoomTypeDAL.suaLoaiPhong(rt))
+                        {
+                            MessageBox.Show("Sửa loại phòng thành công");
+                            dtgvLoai_LoaiPhong.DataSource = RoomTypeDAL.getLoaiPhong();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sửa không thành công");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xin hãy nhập đầy đủ thông tin");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Hãy chọn thành viên muốn sửa");
+                }
             }
+            catch { Exception ex; }
         }
 
         private void btnXoaLoai_Click(object sender, EventArgs e)
@@ -249,7 +258,7 @@ namespace GUI_QLKS
                     }
                     else
                     {
-                        MessageBox.Show("Xoá thất bại");
+                        MessageBox.Show("Xoá thất bại vì loại phòng đang chứa phòng","Thông báo", MessageBoxButtons.OKCancel, MessageBoxIcon.Warning);
                     }
                 }
                 else
@@ -264,12 +273,12 @@ namespace GUI_QLKS
             try
             {
                 DataGridViewRow row = dtgvLoai_LoaiPhong.SelectedRows[0];
-                txtIdLoai.Text = row.Cells[0].Value.ToString();
-                txtTenLoai_LoaiPhong.Text = row.Cells[1].Value.ToString();
-                txtMoTa_LP.Text = row.Cells[2].Value.ToString();
-                txtSoGiuong_LP.Text = row.Cells[3].Value.ToString();
-                txtTienGio_LP.Text = row.Cells[4].Value.ToString();
-                txtTienNgay_LP.Text = row.Cells[5].Value.ToString();
+                txtIdLoai.Text = row.Cells[0].Value?.ToString();
+                txtTenLoai_LoaiPhong.Text = row.Cells[1].Value?.ToString();
+                txtMoTa_LP.Text = row.Cells[2].Value?.ToString();
+                txtSoGiuong_LP.Text = row.Cells[3].Value?.ToString();
+                txtTienGio_LP.Text = row.Cells[4].Value?.ToString();
+                txtTienNgay_LP.Text = row.Cells[5].Value?.ToString();
             }
             catch { Exception ex; }
         }
@@ -288,64 +297,73 @@ namespace GUI_QLKS
             try
             {
                 DataGridViewRow row = dtgvDV.SelectedRows[0];
-                txtIdDV_DV.Text = row.Cells[0].Value.ToString();
-                txtTen_DV.Text = row.Cells[1].Value.ToString();
-                txtidLoai_DV.Text = row.Cells[2].Value.ToString();
-                txtDonVi_DV.Text = row.Cells[4].Value.ToString();
-                txtDonGia_DV.Text = row.Cells[5].Value.ToString();
+                txtIdDV_DV.Text = row.Cells[0].Value?.ToString();
+                txtTen_DV.Text = row.Cells[1].Value?.ToString();
+                txtidLoai_DV.Text = row.Cells[2].Value?.ToString();
+                txtDonVi_DV.Text = row.Cells[4].Value?.ToString();
+                txtDonGia_DV.Text = row.Cells[5].Value?.ToString();
+                cbStatus_DV.Visible = row.Cells[6].Visible;
             }
             catch { Exception ex; }
         }
         private void btnThemDV_Click(object sender, EventArgs e)
         {
-            if (txtidLoai_DV.Text != "" && txtTen_DV.Text != "" && txtDonVi_DV.Text != "" && txtDonGia_DV.Text != "")
+            try
             {
-                Service s = new Service(0, int.Parse(txtidLoai_DV.Text.Trim()), txtTen_DV.Text.Trim(), txtDonVi_DV.Text.Trim(), (float)(Convert.ToDouble(txtDonGia_DV.Text.Trim())));
+                if (txtidLoai_DV.Text != "" && txtTen_DV.Text != "" && txtDonVi_DV.Text != "" && txtDonGia_DV.Text != "")
+                {
+                    Service s = new Service(0, int.Parse(txtidLoai_DV.Text.Trim()), txtTen_DV.Text.Trim(), txtDonVi_DV.Text.Trim(), (float)(Convert.ToDouble(txtDonGia_DV.Text.Trim())), cbStatus_DV.Checked);
 
-                if (service.themDichVu(s))
-                {
-                    MessageBox.Show("Thêm dịch vụ thành công");
-                    dtgvDV.DataSource = service.getDV();
-                }
-                else
-                {
-                    MessageBox.Show("Thêm không thành công");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Xin hãy nhập đủ thông tin");
-            }
-        }
-        private void btnSuaDV_Click(object sender, EventArgs e)
-        {
-            if (dtgvDV.SelectedRows.Count > 0)
-            {
-                if (txtIdDV_DV.Text != "" && txtidLoai_DV.Text != "" && txtTen_DV.Text != "" && txtDonVi_DV.Text != "" && txtDonGia_DV.Text != "")
-                {
-                    DataGridViewRow row = dtgvDV.SelectedRows[0];
-                    int ID = Convert.ToInt16(row.Cells[0].Value.ToString());
-                    Service s = new Service(ID, int.Parse(txtidLoai_DV.Text.Trim()), txtTen_DV.Text.Trim(), txtDonVi_DV.Text.Trim(), float.Parse(txtDonGia_DV.Text.Trim()));
-
-                    if (service.suaDichVu(s))
+                    if (service.themDichVu(s))
                     {
-                        MessageBox.Show("Sửa dịch vụ thành công");
+                        MessageBox.Show("Thêm dịch vụ thành công");
                         dtgvDV.DataSource = service.getDV();
                     }
                     else
                     {
-                        MessageBox.Show("Sửa thất bại");
+                        MessageBox.Show("Thêm không thành công");
                     }
                 }
                 else
                 {
-                    MessageBox.Show("Xin hãy nhập đầy đủ thông tin");
+                    MessageBox.Show("Xin hãy nhập đủ thông tin");
                 }
             }
-            else
+            catch { Exception ex; }
+        }
+        private void btnSuaDV_Click(object sender, EventArgs e)
+        {
+            try
             {
-                MessageBox.Show("Hãy chọn thành viên muốn sửa");
+                if (dtgvDV.SelectedRows.Count > 0)
+                {
+                    if (txtIdDV_DV.Text != "" && txtidLoai_DV.Text != "" && txtTen_DV.Text != "" && txtDonVi_DV.Text != "" && txtDonGia_DV.Text != "")
+                    {
+                        DataGridViewRow row = dtgvDV.SelectedRows[0];
+                        int ID = Convert.ToInt16(row.Cells[0].Value.ToString());
+                        Service s = new Service(ID, int.Parse(txtidLoai_DV.Text.Trim()), txtTen_DV.Text.Trim(), txtDonVi_DV.Text.Trim(), float.Parse(txtDonGia_DV.Text.Trim()), cbStatus_DV.Checked);
+
+                        if (service.suaDichVu(s))
+                        {
+                            MessageBox.Show("Sửa dịch vụ thành công");
+                            dtgvDV.DataSource = service.getDV();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sửa thất bại");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xin hãy nhập đầy đủ thông tin");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Hãy chọn thành viên muốn sửa");
+                }
             }
+            catch { Exception ex; }
         }
 
         private void btnXoaDV_Click(object sender, EventArgs e)
@@ -392,50 +410,27 @@ namespace GUI_QLKS
             try
             {
                 DataGridViewRow row = dtgvKDV.SelectedRows[0];
-                txtIDLoaiDV_LDV.Text = row.Cells[0].Value.ToString();
-                txtTenKdv_LDV.Text = row.Cells[1].Value.ToString();
+                txtIDLoaiDV_LDV.Text = row.Cells[0].Value?.ToString();
+                txtTenKdv_LDV.Text = row.Cells[1].Value?.ToString();
             }
             catch { Exception ex; }
         }
         private void btnThemKDV_Click(object sender, EventArgs e)
         {
-            if (txtTenKdv_LDV.Text != "")
-            {
-                ServiceType ldv = new ServiceType(0, txtTenKdv_LDV.Text.Trim());
-
-                if (serviceType.themLoaiDichVu(ldv))
-                {
-                    MessageBox.Show("Thêm loại dịch vụ thành công");
-                    dtgvKDV.DataSource = serviceType.getLDV();
-                }
-                else
-                {
-                    MessageBox.Show("Thêm không thành công");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Xin hãy nhập đủ thông tin");
-            }
-        }
-        private void btnSuaKDV_Click(object sender, EventArgs e)
-        {
-            if (dtgvKDV.SelectedRows.Count > 0)
+            try
             {
                 if (txtTenKdv_LDV.Text != "")
                 {
-                    DataGridViewRow row = dtgvKDV.SelectedRows[0];
-                    int ID = Convert.ToInt16(row.Cells[0].Value.ToString());
-                    ServiceType ldv = new ServiceType(ID, txtTenKdv_LDV.Text.Trim());
+                    ServiceType ldv = new ServiceType(0, txtTenKdv_LDV.Text.Trim());
 
-                    if (serviceType.suaLoaiDichVu(ldv))
+                    if (serviceType.themLoaiDichVu(ldv))
                     {
-                        MessageBox.Show("Sửa loại dịch vụ thành công");
+                        MessageBox.Show("Thêm loại dịch vụ thành công");
                         dtgvKDV.DataSource = serviceType.getLDV();
                     }
                     else
                     {
-                        MessageBox.Show("Sửa thất bại");
+                        MessageBox.Show("Thêm không thành công");
                     }
                 }
                 else
@@ -443,10 +438,41 @@ namespace GUI_QLKS
                     MessageBox.Show("Xin hãy nhập đủ thông tin");
                 }
             }
-            else
+            catch { Exception ex; }
+        }
+        private void btnSuaKDV_Click(object sender, EventArgs e)
+        {
+            try
             {
-                MessageBox.Show("Hãy chọn thành viên muốn sửa");
+                if (dtgvKDV.SelectedRows.Count > 0)
+                {
+                    if (txtTenKdv_LDV.Text != "")
+                    {
+                        DataGridViewRow row = dtgvKDV.SelectedRows[0];
+                        int ID = Convert.ToInt16(row.Cells[0].Value.ToString());
+                        ServiceType ldv = new ServiceType(ID, txtTenKdv_LDV.Text.Trim());
+
+                        if (serviceType.suaLoaiDichVu(ldv))
+                        {
+                            MessageBox.Show("Sửa loại dịch vụ thành công");
+                            dtgvKDV.DataSource = serviceType.getLDV();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sửa thất bại");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xin hãy nhập đủ thông tin");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Hãy chọn thành viên muốn sửa");
+                }
             }
+            catch { Exception ex; }
         }
 
         private void btnXoaKDV_Click(object sender, EventArgs e)
@@ -468,7 +494,7 @@ namespace GUI_QLKS
                     }
                     else
                     {
-                        MessageBox.Show("Xoá thất bại");
+                        MessageBox.Show("Xoá thất bại vì loại dịch vụ đang chứa dịch vụ","Thông báo",MessageBoxButtons.OKCancel,MessageBoxIcon.Warning);
                     }
                 }
                 else
@@ -493,53 +519,29 @@ namespace GUI_QLKS
             try
             {
                 DataGridViewRow row = dtgvTK.SelectedRows[0];
-                txtIdTK_TK.Text = row.Cells[0].Value.ToString();
-                txtAcc_TK.Text = row.Cells[2].Value.ToString();
-                txtPass_TK.Text = row.Cells[3].Value.ToString();
-                txtPQTK_TK.Text = row.Cells[4].Value.ToString();
-                txtMaNV_TK.Text = row.Cells[1].Value.ToString();
+                txtIdTK_TK.Text = row.Cells[0].Value?.ToString();
+                txtAcc_TK.Text = row.Cells[2].Value?.ToString();
+                txtPass_TK.Text = row.Cells[3].Value?.ToString();
+                txtPQTK_TK.Text = row.Cells[4].Value?.ToString();
+                txtMaNV_TK.Text = row.Cells[1].Value?.ToString();
             }
             catch { Exception ex; }
         }
         private void btnThemTK_Click(object sender, EventArgs e)
         {
-            if (txtAcc_TK.Text != "" && txtPass_TK.Text != "" && txtPQTK_TK.Text != "" && txtMaNV_TK.Text != "")
+            try
             {
-                Account a = new Account(0, txtMaNV_TK.Text.Trim(), txtAcc_TK.Text.Trim(), txtPass_TK.Text.Trim(), txtPQTK_TK.Text.Trim());
-                if (acc.themTaiKhoan(a))
+                if (txtAcc_TK.Text != "" && txtPass_TK.Text != "" && txtPQTK_TK.Text != "" && txtMaNV_TK.Text != "")
                 {
-                    MessageBox.Show("Thêm tài khoản thành công");
-                    dtgvTK.DataSource = acc.getTaiKhoan();
-                }
-                else
-                {
-                    MessageBox.Show("Thêm không thành công");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Xin hãy nhập đủ thông tin");
-            }
-        }
-
-        private void btnSuaTK_Click(object sender, EventArgs e)
-        {
-            if (dtgvTK.SelectedRows.Count > 0)
-            {
-                if (txtAcc_TK.Text != "" && txtPass_TK.Text != "" && txtPQTK_TK.Text != "" && txtMaNV_TK.Text != "" && txtIdTK_TK.Text != "")
-                {
-                    DataGridViewRow row = dtgvTK.SelectedRows[0];
-                    int ID = Convert.ToInt16(row.Cells[0].Value.ToString());
-                    Account a = new Account(ID, txtMaNV_TK.Text.Trim(), txtAcc_TK.Text.Trim(), txtPass_TK.Text.Trim(), txtPQTK_TK.Text.Trim());
-
-                    if (acc.suaTaiKhoan(a))
+                    Account a = new Account(0, txtMaNV_TK.Text.Trim(), txtAcc_TK.Text.Trim(), txtPass_TK.Text.Trim(), txtPQTK_TK.Text.Trim());
+                    if (acc.themTaiKhoan(a))
                     {
-                        MessageBox.Show("Sửa tài khoản thành công");
+                        MessageBox.Show("Thêm tài khoản thành công");
                         dtgvTK.DataSource = acc.getTaiKhoan();
                     }
                     else
                     {
-                        MessageBox.Show("Sửa thất bại");
+                        MessageBox.Show("Thêm không thành công");
                     }
                 }
                 else
@@ -547,10 +549,42 @@ namespace GUI_QLKS
                     MessageBox.Show("Xin hãy nhập đủ thông tin");
                 }
             }
-            else
+           catch { Exception ex; }
+        }
+
+        private void btnSuaTK_Click(object sender, EventArgs e)
+        {
+            try
             {
-                MessageBox.Show("Hãy chọn thành viên muốn sửa");
+                if (dtgvTK.SelectedRows.Count > 0)
+                {
+                    if (txtAcc_TK.Text != "" && txtPass_TK.Text != "" && txtPQTK_TK.Text != "" && txtMaNV_TK.Text != "" && txtIdTK_TK.Text != "")
+                    {
+                        DataGridViewRow row = dtgvTK.SelectedRows[0];
+                        int ID = Convert.ToInt16(row.Cells[0].Value.ToString());
+                        Account a = new Account(ID, txtMaNV_TK.Text.Trim(), txtAcc_TK.Text.Trim(), txtPass_TK.Text.Trim(), txtPQTK_TK.Text.Trim());
+
+                        if (acc.suaTaiKhoan(a))
+                        {
+                            MessageBox.Show("Sửa tài khoản thành công");
+                            dtgvTK.DataSource = acc.getTaiKhoan();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sửa thất bại");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xin hãy nhập đủ thông tin");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Hãy chọn thành viên muốn sửa");
+                }
             }
+            catch { Exception ex; }
         }
 
         private void btnXoaTK_Click(object sender, EventArgs e)
@@ -598,57 +632,33 @@ namespace GUI_QLKS
             try
             {
                 DataGridViewRow r = dtgvNV.SelectedRows[0];
-                txtIDNV_NV.Text = r.Cells[0].Value.ToString();
-                txtTKNV_NV.Text = r.Cells[1].Value.ToString();
-                txtHoTenNV_NV.Text = r.Cells[2].Value.ToString();
-                txtDiaChiNV_NV.Text = r.Cells[3].Value.ToString();
-                txtSDTNV_NV.Text = r.Cells[4].Value.ToString();
-                dtpkNSNV_NV.Text = r.Cells[5].Value.ToString();
-                txtCMNDNV_NV.Text = r.Cells[6].Value.ToString();
-                txtCVNV_NV.Text = r.Cells[7].Value.ToString();
+                txtIDNV_NV.Text = r.Cells[0].Value?.ToString();
+                txtTKNV_NV.Text = r.Cells[1].Value?.ToString();
+                txtHoTenNV_NV.Text = r.Cells[2].Value?.ToString();
+                txtDiaChiNV_NV.Text = r.Cells[3].Value?.ToString();
+                txtSDTNV_NV.Text = r.Cells[4].Value?.ToString();
+                dtpkNSNV_NV.Text = r.Cells[5].Value?.ToString();
+                txtCMNDNV_NV.Text = r.Cells[6].Value?.ToString();
+                txtCVNV_NV.Text = r.Cells[7].Value?.ToString();
             }
             catch { Exception ex; }
         }
         private void btnThem_NV_Click(object sender, EventArgs e)
         {
-            if (txtHoTenNV_NV.Text != "" && txtDiaChiNV_NV.Text != "" && txtCVNV_NV.Text != "" && txtIDNV_NV.Text != "" && txtSDTNV_NV.Text != ""
-                && txtCMNDNV_NV.Text != "")
-            {
-                Staff s = new Staff(txtIDNV_NV.Text.Trim(), txtHoTenNV_NV.Text.Trim(), txtDiaChiNV_NV.Text.Trim(), txtSDTNV_NV.Text.Trim(), dtpkNSNV_NV.Value, txtCMNDNV_NV.Text.Trim(), txtCVNV_NV.Text.Trim());
-                if (staff.themNhanVien(s))
-                {
-                    MessageBox.Show("Thêm nhân viên thành công");
-                    dtgvNV.DataSource = staff.getStaff();
-                }
-                else
-                {
-                    MessageBox.Show("Thêm không thành công");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Xin hãy nhập đủ thông tin");
-            }
-        }
-
-        private void btnSua_NV_Click(object sender, EventArgs e)
-        {
-            if (dtgvNV.SelectedRows.Count > 0)
+            try
             {
                 if (txtHoTenNV_NV.Text != "" && txtDiaChiNV_NV.Text != "" && txtCVNV_NV.Text != "" && txtIDNV_NV.Text != "" && txtSDTNV_NV.Text != ""
-                 && txtCMNDNV_NV.Text != "")
+                && txtCMNDNV_NV.Text != "")
                 {
-                    DataGridViewRow row = dtgvNV.SelectedRows[0];
-                    string ID = row.Cells[0].Value.ToString();
-                    Staff s = new Staff(ID, int.Parse(txtTKNV_NV.Text.Trim()), txtHoTenNV_NV.Text.Trim(), txtDiaChiNV_NV.Text.Trim(), txtSDTNV_NV.Text.Trim(), dtpkNSNV_NV.Value, txtCMNDNV_NV.Text.Trim(), txtCVNV_NV.Text.Trim());
-                    if (staff.suaNhanVien(s))
+                    Staff s = new Staff(txtIDNV_NV.Text.Trim(), txtHoTenNV_NV.Text.Trim(), txtDiaChiNV_NV.Text.Trim(), txtSDTNV_NV.Text.Trim(), dtpkNSNV_NV.Value, txtCMNDNV_NV.Text.Trim(), txtCVNV_NV.Text.Trim());
+                    if (staff.themNhanVien(s))
                     {
-                        MessageBox.Show("Sửa nhân viên thành công");
+                        MessageBox.Show("Thêm nhân viên thành công");
                         dtgvNV.DataSource = staff.getStaff();
                     }
                     else
                     {
-                        MessageBox.Show("Sửa thất bại");
+                        MessageBox.Show("Thêm không thành công");
                     }
                 }
                 else
@@ -656,10 +666,42 @@ namespace GUI_QLKS
                     MessageBox.Show("Xin hãy nhập đủ thông tin");
                 }
             }
-            else
+            catch { Exception ex; }
+        }
+
+        private void btnSua_NV_Click(object sender, EventArgs e)
+        {
+            try
             {
-                MessageBox.Show("Hãy chọn thành viên muốn sửa");
+                if (dtgvNV.SelectedRows.Count > 0)
+                {
+                    if (txtHoTenNV_NV.Text != "" && txtDiaChiNV_NV.Text != "" && txtCVNV_NV.Text != "" && txtIDNV_NV.Text != "" && txtSDTNV_NV.Text != ""
+                     && txtCMNDNV_NV.Text != "")
+                    {
+                        DataGridViewRow row = dtgvNV.SelectedRows[0];
+                        string ID = row.Cells[0].Value.ToString();
+                        Staff s = new Staff(ID, int.Parse(txtTKNV_NV.Text.Trim()), txtHoTenNV_NV.Text.Trim(), txtDiaChiNV_NV.Text.Trim(), txtSDTNV_NV.Text.Trim(), dtpkNSNV_NV.Value, txtCMNDNV_NV.Text.Trim(), txtCVNV_NV.Text.Trim());
+                        if (staff.suaNhanVien(s))
+                        {
+                            MessageBox.Show("Sửa nhân viên thành công");
+                            dtgvNV.DataSource = staff.getStaff();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sửa thất bại");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xin hãy nhập đủ thông tin");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Hãy chọn thành viên muốn sửa");
+                }
             }
+            catch { Exception ex; }
         }
 
         private void btnXoa_NV_Click(object sender, EventArgs e)
@@ -718,55 +760,32 @@ namespace GUI_QLKS
             try
             {
                 DataGridViewRow r = dtgvKhach.SelectedRows[0];
-                txtMaKH_KH.Text = r.Cells[0].Value.ToString();
-                txtHoTen_KH.Text = r.Cells[1].Value.ToString();
-                txtSDT_KH.Text = r.Cells[2].Value.ToString();
-                txtCMND_KH.Text = r.Cells[3].Value.ToString();
-                dtpkNS_KH.Text = r.Cells[4].Value.ToString();
+                txtMaKH_KH.Text = r.Cells[0].Value?.ToString();
+                txtHoTen_KH.Text = r.Cells[1].Value?.ToString();
+                txtSDT_KH.Text = r.Cells[2].Value?.ToString();
+                txtCMND_KH.Text = r.Cells[3].Value?.ToString();
+                dtpkNS_KH.Text = r.Cells[4].Value?.ToString();
             }
             catch { Exception ex; }
         }
 
         private void btnThem_KH_Click(object sender, EventArgs e)
         {
-            if (txtHoTen_KH.Text != "" && txtSDT_KH.Text != "" && txtCMND_KH.Text != "")
-            {
-                Customer c = new Customer(0, txtHoTen_KH.Text.Trim(), txtSDT_KH.Text.Trim(), txtCMND_KH.Text.Trim(),
-                  dtpkNS_KH.Value);
-
-                if (customer.themKhach(c))
-                {
-                    MessageBox.Show("Thêm khách hàng thành công");
-                    dtgvKhach.DataSource = customer.getKhach();
-                }
-                else
-                {
-                    MessageBox.Show("Thêm không thành công");
-                }
-            }
-            else
-            {
-                MessageBox.Show("Xin hãy nhập đủ thông tin");
-            }
-        }
-
-        private void btnSua_KH_Click(object sender, EventArgs e)
-        {
-            if (dtgvKhach.SelectedRows.Count > 0)
+            try
             {
                 if (txtHoTen_KH.Text != "" && txtSDT_KH.Text != "" && txtCMND_KH.Text != "")
                 {
-                    DataGridViewRow row = dtgvKhach.SelectedRows[0];
-                    int ID = Convert.ToInt16(row.Cells[0].Value.ToString());
-                    Customer c = new Customer(ID, txtHoTen_KH.Text.Trim(), txtSDT_KH.Text.Trim(), txtCMND_KH.Text.Trim(), dtpkNS_KH.Value);
-                    if (customer.suaKhach(c))
+                    Customer c = new Customer(0, txtHoTen_KH.Text.Trim(), txtSDT_KH.Text.Trim(), txtCMND_KH.Text.Trim(),
+                      dtpkNS_KH.Value,cbSD_Khach.Checked);
+
+                    if (customer.themKhach(c))
                     {
-                        MessageBox.Show("Sửa khách thành công");
+                        MessageBox.Show("Thêm khách hàng thành công");
                         dtgvKhach.DataSource = customer.getKhach();
                     }
                     else
                     {
-                        MessageBox.Show("Sửa thất bại");
+                        MessageBox.Show("Thêm không thành công");
                     }
                 }
                 else
@@ -774,10 +793,41 @@ namespace GUI_QLKS
                     MessageBox.Show("Xin hãy nhập đủ thông tin");
                 }
             }
-            else
+           catch { Exception ex; }
+        }
+
+        private void btnSua_KH_Click(object sender, EventArgs e)
+        {
+            try
             {
-                MessageBox.Show("Hãy chọn thành viên muốn sửa");
+                if (dtgvKhach.SelectedRows.Count > 0)
+                {
+                    if (txtHoTen_KH.Text != "" && txtSDT_KH.Text != "" && txtCMND_KH.Text != "")
+                    {
+                        DataGridViewRow row = dtgvKhach.SelectedRows[0];
+                        int ID = Convert.ToInt16(row.Cells[0].Value.ToString());
+                        Customer c = new Customer(ID, txtHoTen_KH.Text.Trim(), txtSDT_KH.Text.Trim(), txtCMND_KH.Text.Trim(), dtpkNS_KH.Value,cbSD_Khach.Checked);
+                        if (customer.suaKhach(c))
+                        {
+                            MessageBox.Show("Sửa khách thành công");
+                            dtgvKhach.DataSource = customer.getKhach();
+                        }
+                        else
+                        {
+                            MessageBox.Show("Sửa thất bại");
+                        }
+                    }
+                    else
+                    {
+                        MessageBox.Show("Xin hãy nhập đủ thông tin");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Hãy chọn thành viên muốn sửa");
+                }
             }
+            catch { Exception ex; }
         }
 
         private void btnXoa_KH_Click(object sender, EventArgs e)
@@ -829,5 +879,7 @@ namespace GUI_QLKS
             }
         }
         #endregion
+
+        
     }
 }

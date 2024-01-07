@@ -62,11 +62,11 @@ namespace DAL_QLKS
             finally { _conn.Close(); }
             return false;
         }
-        public DataTable getUOSByID(string ten)
+        public DataTable getUOSByName(string ten)
         {
             try
             {
-                string SQL = string.Format("EXEC dbo.UOSByID @ten = {0}", ten);
+                string SQL = string.Format("EXEC dbo.UOSByName @ten = {0}", ten);
                 _conn.Open();
                 SqlCommand cmd = new SqlCommand(SQL, _conn);
 
@@ -79,7 +79,22 @@ namespace DAL_QLKS
             finally { _conn.Close(); }
             return null;
         }
-        
+        public DataTable getUOSByID(int id)
+        {
+            try
+            {
+                string SQL = string.Format("EXEC dbo.UOSByID @id = {0}", id);
+                _conn.Open();
+                SqlCommand cmd = new SqlCommand(SQL, _conn);
 
+                SqlDataAdapter adap = new SqlDataAdapter(cmd);
+                DataTable dt = new DataTable();
+                adap.Fill(dt);
+                return dt;
+            }
+            catch (Exception e) { }
+            finally { _conn.Close(); }
+            return null;
+        }
     }
 }

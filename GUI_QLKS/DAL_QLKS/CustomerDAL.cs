@@ -40,12 +40,13 @@ namespace DAL_QLKS
                 //if (cmd.ExecuteNonQuery() > 0)
                 //    return true;
 
-                SqlCommand cmd = new SqlCommand("EXEC ThemKhach @HoTen, @SDT , @CMND, @NS", _conn);
+                SqlCommand cmd = new SqlCommand("EXEC ThemKhach @HoTen, @SDT , @CMND, @NS, @ST ", _conn);
 
                 cmd.Parameters.AddWithValue("@HoTen",c.Name);
                 cmd.Parameters.AddWithValue("@SDT", c.Sdt);
                 cmd.Parameters.AddWithValue("@CMND",c.Cmnd );
                 cmd.Parameters.AddWithValue("@NS",c.Ns);
+                cmd.Parameters.AddWithValue("@ST", c.Status);
                 int result = cmd.ExecuteNonQuery(); _conn.Close();
                 return result > 0;
             }
@@ -63,12 +64,13 @@ namespace DAL_QLKS
                 //SqlCommand cmd = new SqlCommand(SQL, _conn);
                 //if (cmd.ExecuteNonQuery() > 0)
                 //    return true;
-                SqlCommand cmd = new SqlCommand("EXEC dbo.SuaKhach @HoTen , @SoDienThoai , @CMND , @NS , @Ma ", _conn);
+                SqlCommand cmd = new SqlCommand("EXEC dbo.SuaKhach @HoTen , @SoDienThoai , @CMND , @NS ,@ST , @Ma ", _conn);
 
                 cmd.Parameters.AddWithValue("@HoTen", c.Name);
                 cmd.Parameters.AddWithValue("@SoDienThoai", c.Sdt);
                 cmd.Parameters.AddWithValue("@CMND", c.Cmnd);
                 cmd.Parameters.AddWithValue("@NS", c.Ns);
+                cmd.Parameters.AddWithValue("@ST", c.Status);
                 cmd.Parameters.AddWithValue("@Ma", c.Id);
                 int result = cmd.ExecuteNonQuery(); _conn.Close();
                 return result > 0;
@@ -116,7 +118,7 @@ namespace DAL_QLKS
             try
             {
                 _conn.Open();
-                DataTable data = DataProvider.Instance.ExecuteQuery("SELECT * FROM dbo.KHACH WHERE MAKHACH = " + ma);
+                DataTable data = DataProvider.Instance.ExecuteQuery("SELECT * FROM dbo.KHACH WHERE STATUS = 1 AND MAKHACH =" + ma);
                 if (data.Rows.Count > 0)
                 {
                     Customer c = new Customer(data.Rows[0]);

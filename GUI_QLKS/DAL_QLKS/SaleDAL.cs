@@ -5,11 +5,20 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using DTO;
 
 namespace DAL_QLKS
 {
     public class SaleDAL:DBConnect
     {
+        private static SaleDAL instance;
+        Sale sale = new Sale();
+        public static SaleDAL Instance
+        {
+            get { if (instance == null) instance = new SaleDAL(); return instance; }
+            private set => instance = value;
+        }
+        public SaleDAL() { }
         public DataTable getDoanhThu()
         {
             SqlDataAdapter adapter = new SqlDataAdapter("EXEC USP_GetSalesList", _conn);

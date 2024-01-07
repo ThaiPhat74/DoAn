@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "lRNKurpo6NkqCJkSjRFhRW9XUsx0asNkCbHZ3FrN4mXmVtrKkTbCG4vaXCvHlnUTqSA1QMv3f+sroS1NoDWQWg==",
+  "success": true,
+  "projectFilePath": "D:\\Source\\GUI_QLKS\\GUI_QLKS\\GUI_QLKS.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\thaip\\.nuget\\packages\\entityframework\\6.2.0\\entityframework.6.2.0.nupkg.sha512"
+  ],
+  "logs": []
+}

@@ -38,7 +38,6 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
             this.tabPage1 = new System.Windows.Forms.TabPage();
-            this.textBox7 = new System.Windows.Forms.TextBox();
             this.panel53 = new System.Windows.Forms.Panel();
             this.label33 = new System.Windows.Forms.Label();
             this.panel41 = new System.Windows.Forms.Panel();
@@ -77,7 +76,6 @@
             this.panel52 = new System.Windows.Forms.Panel();
             this.label32 = new System.Windows.Forms.Label();
             this.panel30 = new System.Windows.Forms.Panel();
-            this.textBox5 = new System.Windows.Forms.TextBox();
             this.panel31 = new System.Windows.Forms.Panel();
             this.txtMaNV_TK = new System.Windows.Forms.TextBox();
             this.label14 = new System.Windows.Forms.Label();
@@ -104,7 +102,6 @@
             this.panel1 = new System.Windows.Forms.Panel();
             this.label27 = new System.Windows.Forms.Label();
             this.panel29 = new System.Windows.Forms.Panel();
-            this.textBox4 = new System.Windows.Forms.TextBox();
             this.panel32 = new System.Windows.Forms.Panel();
             this.txtTenKdv_LDV = new System.Windows.Forms.TextBox();
             this.label16 = new System.Windows.Forms.Label();
@@ -123,7 +120,9 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label28 = new System.Windows.Forms.Label();
             this.panel22 = new System.Windows.Forms.Panel();
-            this.textBox3 = new System.Windows.Forms.TextBox();
+            this.panel21 = new System.Windows.Forms.Panel();
+            this.cbStatus_DV = new System.Windows.Forms.CheckBox();
+            this.label38 = new System.Windows.Forms.Label();
             this.panel65 = new System.Windows.Forms.Panel();
             this.txtDonVi_DV = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -150,7 +149,6 @@
             this.panel49 = new System.Windows.Forms.Panel();
             this.label29 = new System.Windows.Forms.Label();
             this.panel14 = new System.Windows.Forms.Panel();
-            this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel40 = new System.Windows.Forms.Panel();
             this.txtTienNgay_LP = new System.Windows.Forms.TextBox();
             this.label21 = new System.Windows.Forms.Label();
@@ -185,7 +183,6 @@
             this.btnXoaPhong = new System.Windows.Forms.Button();
             this.btnThemPhong = new System.Windows.Forms.Button();
             this.panel4 = new System.Windows.Forms.Panel();
-            this.textBox1 = new System.Windows.Forms.TextBox();
             this.panel71 = new System.Windows.Forms.Panel();
             this.chboxTTP_Phong = new System.Windows.Forms.CheckBox();
             this.label45 = new System.Windows.Forms.Label();
@@ -220,7 +217,6 @@
             this.btnXoa_KH = new System.Windows.Forms.Button();
             this.btnThem_KH = new System.Windows.Forms.Button();
             this.panel59 = new System.Windows.Forms.Panel();
-            this.textBox6 = new System.Windows.Forms.TextBox();
             this.panel61 = new System.Windows.Forms.Panel();
             this.txtCMND_KH = new System.Windows.Forms.TextBox();
             this.label39 = new System.Windows.Forms.Label();
@@ -236,6 +232,9 @@
             this.panel66 = new System.Windows.Forms.Panel();
             this.txtHoTen_KH = new System.Windows.Forms.TextBox();
             this.label44 = new System.Windows.Forms.Label();
+            this.panel68 = new System.Windows.Forms.Panel();
+            this.cbSD_Khach = new System.Windows.Forms.CheckBox();
+            this.label43 = new System.Windows.Forms.Label();
             this.tabPage1.SuspendLayout();
             this.panel53.SuspendLayout();
             this.panel41.SuspendLayout();
@@ -273,6 +272,7 @@
             this.tabDichVu.SuspendLayout();
             this.panel2.SuspendLayout();
             this.panel22.SuspendLayout();
+            this.panel21.SuspendLayout();
             this.panel65.SuspendLayout();
             this.panel23.SuspendLayout();
             this.panel24.SuspendLayout();
@@ -318,34 +318,22 @@
             this.panel63.SuspendLayout();
             this.panel64.SuspendLayout();
             this.panel66.SuspendLayout();
+            this.panel68.SuspendLayout();
             this.SuspendLayout();
             // 
             // tabPage1
             // 
-            this.tabPage1.Controls.Add(this.textBox7);
             this.tabPage1.Controls.Add(this.panel53);
             this.tabPage1.Controls.Add(this.panel41);
             this.tabPage1.Controls.Add(this.panel47);
             this.tabPage1.Controls.Add(this.panel48);
-            this.tabPage1.Location = new System.Drawing.Point(4, 22);
+            this.tabPage1.Location = new System.Drawing.Point(23, 4);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(1015, 492);
+            this.tabPage1.Size = new System.Drawing.Size(1015, 510);
             this.tabPage1.TabIndex = 6;
             this.tabPage1.Text = "Nhân viên";
             this.tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // textBox7
-            // 
-            this.textBox7.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox7.ForeColor = System.Drawing.Color.Red;
-            this.textBox7.Location = new System.Drawing.Point(408, 12);
-            this.textBox7.Multiline = true;
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(140, 59);
-            this.textBox7.TabIndex = 7;
-            this.textBox7.Text = "Thay thế dấu \" \" bằng \"_\" khi nhập liệu";
-            this.textBox7.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panel53
             // 
@@ -692,10 +680,10 @@
             this.tabAcc.Controls.Add(this.panel30);
             this.tabAcc.Controls.Add(this.panel38);
             this.tabAcc.Controls.Add(this.panel39);
-            this.tabAcc.Location = new System.Drawing.Point(4, 22);
+            this.tabAcc.Location = new System.Drawing.Point(23, 4);
             this.tabAcc.Name = "tabAcc";
             this.tabAcc.Padding = new System.Windows.Forms.Padding(3);
-            this.tabAcc.Size = new System.Drawing.Size(1015, 492);
+            this.tabAcc.Size = new System.Drawing.Size(1015, 510);
             this.tabAcc.TabIndex = 5;
             this.tabAcc.Text = "Tài khoản";
             this.tabAcc.UseVisualStyleBackColor = true;
@@ -722,7 +710,6 @@
             // panel30
             // 
             this.panel30.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel30.Controls.Add(this.textBox5);
             this.panel30.Controls.Add(this.panel31);
             this.panel30.Controls.Add(this.panel34);
             this.panel30.Controls.Add(this.panel35);
@@ -732,18 +719,6 @@
             this.panel30.Name = "panel30";
             this.panel30.Size = new System.Drawing.Size(221, 392);
             this.panel30.TabIndex = 8;
-            // 
-            // textBox5
-            // 
-            this.textBox5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox5.ForeColor = System.Drawing.Color.Red;
-            this.textBox5.Location = new System.Drawing.Point(49, 291);
-            this.textBox5.Multiline = true;
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(140, 68);
-            this.textBox5.TabIndex = 5;
-            this.textBox5.Text = "Thay thế dấu \" \" bằng \"_\" khi nhập liệu";
-            this.textBox5.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panel31
             // 
@@ -969,10 +944,10 @@
             this.tabLoaiDichVu.Controls.Add(this.panel29);
             this.tabLoaiDichVu.Controls.Add(this.panel28);
             this.tabLoaiDichVu.Controls.Add(this.panel27);
-            this.tabLoaiDichVu.Location = new System.Drawing.Point(4, 22);
+            this.tabLoaiDichVu.Location = new System.Drawing.Point(23, 4);
             this.tabLoaiDichVu.Name = "tabLoaiDichVu";
             this.tabLoaiDichVu.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLoaiDichVu.Size = new System.Drawing.Size(1015, 492);
+            this.tabLoaiDichVu.Size = new System.Drawing.Size(1015, 510);
             this.tabLoaiDichVu.TabIndex = 4;
             this.tabLoaiDichVu.Text = "Kiểu dịch vụ";
             this.tabLoaiDichVu.UseVisualStyleBackColor = true;
@@ -999,25 +974,12 @@
             // panel29
             // 
             this.panel29.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel29.Controls.Add(this.textBox4);
             this.panel29.Controls.Add(this.panel32);
             this.panel29.Controls.Add(this.panel33);
             this.panel29.Location = new System.Drawing.Point(737, 87);
             this.panel29.Name = "panel29";
             this.panel29.Size = new System.Drawing.Size(249, 375);
             this.panel29.TabIndex = 6;
-            // 
-            // textBox4
-            // 
-            this.textBox4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox4.ForeColor = System.Drawing.Color.Red;
-            this.textBox4.Location = new System.Drawing.Point(56, 257);
-            this.textBox4.Multiline = true;
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(140, 68);
-            this.textBox4.TabIndex = 5;
-            this.textBox4.Text = "Thay thế dấu \" \" bằng \"_\" khi nhập liệu";
-            this.textBox4.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panel32
             // 
@@ -1105,7 +1067,7 @@
             this.dtgvKDV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1176,10 +1138,10 @@
             this.tabDichVu.Controls.Add(this.panel22);
             this.tabDichVu.Controls.Add(this.panel20);
             this.tabDichVu.Controls.Add(this.panel19);
-            this.tabDichVu.Location = new System.Drawing.Point(4, 22);
+            this.tabDichVu.Location = new System.Drawing.Point(23, 4);
             this.tabDichVu.Name = "tabDichVu";
             this.tabDichVu.Padding = new System.Windows.Forms.Padding(3);
-            this.tabDichVu.Size = new System.Drawing.Size(1015, 492);
+            this.tabDichVu.Size = new System.Drawing.Size(1015, 510);
             this.tabDichVu.TabIndex = 3;
             this.tabDichVu.Text = "Dịch vụ";
             this.tabDichVu.UseVisualStyleBackColor = true;
@@ -1206,7 +1168,7 @@
             // panel22
             // 
             this.panel22.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel22.Controls.Add(this.textBox3);
+            this.panel22.Controls.Add(this.panel21);
             this.panel22.Controls.Add(this.panel65);
             this.panel22.Controls.Add(this.panel23);
             this.panel22.Controls.Add(this.panel24);
@@ -1217,17 +1179,35 @@
             this.panel22.Size = new System.Drawing.Size(247, 388);
             this.panel22.TabIndex = 5;
             // 
-            // textBox3
+            // panel21
             // 
-            this.textBox3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox3.ForeColor = System.Drawing.Color.Red;
-            this.textBox3.Location = new System.Drawing.Point(62, 276);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(140, 68);
-            this.textBox3.TabIndex = 5;
-            this.textBox3.Text = "Thay thế dấu \" \" bằng \"_\" khi nhập liệu";
-            this.textBox3.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.panel21.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel21.Controls.Add(this.cbStatus_DV);
+            this.panel21.Controls.Add(this.label38);
+            this.panel21.Location = new System.Drawing.Point(3, 218);
+            this.panel21.Name = "panel21";
+            this.panel21.Size = new System.Drawing.Size(240, 37);
+            this.panel21.TabIndex = 6;
+            // 
+            // cbStatus_DV
+            // 
+            this.cbStatus_DV.AutoSize = true;
+            this.cbStatus_DV.Location = new System.Drawing.Point(116, 9);
+            this.cbStatus_DV.Name = "cbStatus_DV";
+            this.cbStatus_DV.Size = new System.Drawing.Size(86, 17);
+            this.cbStatus_DV.TabIndex = 2;
+            this.cbStatus_DV.Text = "Hiện dịch vụ";
+            this.cbStatus_DV.UseVisualStyleBackColor = true;
+            // 
+            // label38
+            // 
+            this.label38.AutoSize = true;
+            this.label38.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label38.Location = new System.Drawing.Point(3, 10);
+            this.label38.Name = "label38";
+            this.label38.Size = new System.Drawing.Size(55, 13);
+            this.label38.TabIndex = 0;
+            this.label38.Text = "Trạng thái";
             // 
             // panel65
             // 
@@ -1383,7 +1363,7 @@
             this.dtgvDV.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle5.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle5.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle5.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle5.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle5.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1453,10 +1433,10 @@
             this.tabLoaiPhong.Controls.Add(this.panel14);
             this.tabLoaiPhong.Controls.Add(this.panel12);
             this.tabLoaiPhong.Controls.Add(this.panel11);
-            this.tabLoaiPhong.Location = new System.Drawing.Point(4, 22);
+            this.tabLoaiPhong.Location = new System.Drawing.Point(23, 4);
             this.tabLoaiPhong.Name = "tabLoaiPhong";
             this.tabLoaiPhong.Padding = new System.Windows.Forms.Padding(3);
-            this.tabLoaiPhong.Size = new System.Drawing.Size(1015, 492);
+            this.tabLoaiPhong.Size = new System.Drawing.Size(1015, 510);
             this.tabLoaiPhong.TabIndex = 2;
             this.tabLoaiPhong.Text = "Loại phòng";
             this.tabLoaiPhong.UseVisualStyleBackColor = true;
@@ -1483,7 +1463,6 @@
             // panel14
             // 
             this.panel14.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel14.Controls.Add(this.textBox2);
             this.panel14.Controls.Add(this.panel40);
             this.panel14.Controls.Add(this.panel16);
             this.panel14.Controls.Add(this.panel15);
@@ -1494,18 +1473,6 @@
             this.panel14.Name = "panel14";
             this.panel14.Size = new System.Drawing.Size(298, 395);
             this.panel14.TabIndex = 5;
-            // 
-            // textBox2
-            // 
-            this.textBox2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox2.ForeColor = System.Drawing.Color.Red;
-            this.textBox2.Location = new System.Drawing.Point(83, 304);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(140, 68);
-            this.textBox2.TabIndex = 5;
-            this.textBox2.Text = "Thay thế dấu \" \" bằng \"_\" khi nhập liệu";
-            this.textBox2.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panel40
             // 
@@ -1697,7 +1664,7 @@
             this.dtgvLoai_LoaiPhong.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewCellStyle7.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle7.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle7.Font = new System.Drawing.Font("Times New Roman", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle7.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle7.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle7.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -1768,10 +1735,10 @@
             this.tabPhong.Controls.Add(this.panel5);
             this.tabPhong.Controls.Add(this.panel4);
             this.tabPhong.Controls.Add(this.panel3);
-            this.tabPhong.Location = new System.Drawing.Point(4, 22);
+            this.tabPhong.Location = new System.Drawing.Point(23, 4);
             this.tabPhong.Name = "tabPhong";
             this.tabPhong.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPhong.Size = new System.Drawing.Size(1015, 492);
+            this.tabPhong.Size = new System.Drawing.Size(1015, 510);
             this.tabPhong.TabIndex = 1;
             this.tabPhong.Text = "Phòng";
             this.tabPhong.UseVisualStyleBackColor = true;
@@ -1850,7 +1817,6 @@
             // panel4
             // 
             this.panel4.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel4.Controls.Add(this.textBox1);
             this.panel4.Controls.Add(this.panel71);
             this.panel4.Controls.Add(this.panel6);
             this.panel4.Controls.Add(this.panel10);
@@ -1861,18 +1827,6 @@
             this.panel4.Name = "panel4";
             this.panel4.Size = new System.Drawing.Size(270, 398);
             this.panel4.TabIndex = 1;
-            // 
-            // textBox1
-            // 
-            this.textBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox1.ForeColor = System.Drawing.Color.Red;
-            this.textBox1.Location = new System.Drawing.Point(77, 316);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(140, 68);
-            this.textBox1.TabIndex = 4;
-            this.textBox1.Text = "Thay thế dấu \" \" bằng \"_\" khi nhập liệu";
-            this.textBox1.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panel71
             // 
@@ -2089,6 +2043,7 @@
             // 
             // tab
             // 
+            this.tab.Alignment = System.Windows.Forms.TabAlignment.Left;
             this.tab.Controls.Add(this.tabPhong);
             this.tab.Controls.Add(this.tabLoaiPhong);
             this.tab.Controls.Add(this.tabDichVu);
@@ -2097,9 +2052,10 @@
             this.tab.Controls.Add(this.tabPage1);
             this.tab.Controls.Add(this.tabPage2);
             this.tab.Location = new System.Drawing.Point(12, 12);
+            this.tab.Multiline = true;
             this.tab.Name = "tab";
             this.tab.SelectedIndex = 0;
-            this.tab.Size = new System.Drawing.Size(1023, 518);
+            this.tab.Size = new System.Drawing.Size(1042, 518);
             this.tab.TabIndex = 0;
             // 
             // tabPage2
@@ -2109,10 +2065,10 @@
             this.tabPage2.Controls.Add(this.panel57);
             this.tabPage2.Controls.Add(this.panel58);
             this.tabPage2.Controls.Add(this.panel59);
-            this.tabPage2.Location = new System.Drawing.Point(4, 22);
+            this.tabPage2.Location = new System.Drawing.Point(23, 4);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(1015, 492);
+            this.tabPage2.Size = new System.Drawing.Size(1015, 510);
             this.tabPage2.TabIndex = 7;
             this.tabPage2.Text = "Khách hàng";
             this.tabPage2.UseVisualStyleBackColor = true;
@@ -2169,14 +2125,14 @@
             this.panel58.Controls.Add(this.btnSua_KH);
             this.panel58.Controls.Add(this.btnXoa_KH);
             this.panel58.Controls.Add(this.btnThem_KH);
-            this.panel58.Location = new System.Drawing.Point(576, 9);
+            this.panel58.Location = new System.Drawing.Point(608, 9);
             this.panel58.Name = "panel58";
-            this.panel58.Size = new System.Drawing.Size(435, 65);
+            this.panel58.Size = new System.Drawing.Size(403, 65);
             this.panel58.TabIndex = 14;
             // 
             // btnXem_KH
             // 
-            this.btnXem_KH.Location = new System.Drawing.Point(315, 9);
+            this.btnXem_KH.Location = new System.Drawing.Point(220, 8);
             this.btnXem_KH.Name = "btnXem_KH";
             this.btnXem_KH.Size = new System.Drawing.Size(98, 48);
             this.btnXem_KH.TabIndex = 5;
@@ -2186,7 +2142,7 @@
             // 
             // btnSua_KH
             // 
-            this.btnSua_KH.Location = new System.Drawing.Point(107, 9);
+            this.btnSua_KH.Location = new System.Drawing.Point(116, 8);
             this.btnSua_KH.Name = "btnSua_KH";
             this.btnSua_KH.Size = new System.Drawing.Size(98, 47);
             this.btnSua_KH.TabIndex = 4;
@@ -2196,9 +2152,9 @@
             // 
             // btnXoa_KH
             // 
-            this.btnXoa_KH.Location = new System.Drawing.Point(211, 9);
+            this.btnXoa_KH.Location = new System.Drawing.Point(327, 8);
             this.btnXoa_KH.Name = "btnXoa_KH";
-            this.btnXoa_KH.Size = new System.Drawing.Size(98, 47);
+            this.btnXoa_KH.Size = new System.Drawing.Size(68, 47);
             this.btnXoa_KH.TabIndex = 1;
             this.btnXoa_KH.Text = "Xoá";
             this.btnXoa_KH.UseVisualStyleBackColor = true;
@@ -2206,7 +2162,7 @@
             // 
             // btnThem_KH
             // 
-            this.btnThem_KH.Location = new System.Drawing.Point(3, 10);
+            this.btnThem_KH.Location = new System.Drawing.Point(12, 9);
             this.btnThem_KH.Name = "btnThem_KH";
             this.btnThem_KH.Size = new System.Drawing.Size(98, 47);
             this.btnThem_KH.TabIndex = 0;
@@ -2217,7 +2173,7 @@
             // panel59
             // 
             this.panel59.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.panel59.Controls.Add(this.textBox6);
+            this.panel59.Controls.Add(this.panel68);
             this.panel59.Controls.Add(this.panel61);
             this.panel59.Controls.Add(this.panel62);
             this.panel59.Controls.Add(this.panel63);
@@ -2227,18 +2183,6 @@
             this.panel59.Name = "panel59";
             this.panel59.Size = new System.Drawing.Size(231, 391);
             this.panel59.TabIndex = 15;
-            // 
-            // textBox6
-            // 
-            this.textBox6.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.textBox6.ForeColor = System.Drawing.Color.Red;
-            this.textBox6.Location = new System.Drawing.Point(47, 292);
-            this.textBox6.Multiline = true;
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(140, 68);
-            this.textBox6.TabIndex = 6;
-            this.textBox6.Text = "Thay thế dấu \" \" bằng \"_\" khi nhập liệu";
-            this.textBox6.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // panel61
             // 
@@ -2383,19 +2327,47 @@
             this.label44.TabIndex = 0;
             this.label44.Text = "Họ tên";
             // 
+            // panel68
+            // 
+            this.panel68.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.panel68.Controls.Add(this.cbSD_Khach);
+            this.panel68.Controls.Add(this.label43);
+            this.panel68.Location = new System.Drawing.Point(4, 218);
+            this.panel68.Name = "panel68";
+            this.panel68.Size = new System.Drawing.Size(216, 37);
+            this.panel68.TabIndex = 6;
+            // 
+            // cbSD_Khach
+            // 
+            this.cbSD_Khach.AutoSize = true;
+            this.cbSD_Khach.Location = new System.Drawing.Point(147, 9);
+            this.cbSD_Khach.Name = "cbSD_Khach";
+            this.cbSD_Khach.Size = new System.Drawing.Size(51, 17);
+            this.cbSD_Khach.TabIndex = 1;
+            this.cbSD_Khach.Text = "Hiện ";
+            this.cbSD_Khach.UseVisualStyleBackColor = true;
+            // 
+            // label43
+            // 
+            this.label43.AutoSize = true;
+            this.label43.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label43.Location = new System.Drawing.Point(3, 10);
+            this.label43.Name = "label43";
+            this.label43.Size = new System.Drawing.Size(96, 13);
+            this.label43.TabIndex = 0;
+            this.label43.Text = "Tình trạng sử dụng";
+            // 
             // fadmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1047, 542);
+            this.ClientSize = new System.Drawing.Size(1066, 542);
             this.Controls.Add(this.tab);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "fadmin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Quản lý cơ sở vật chất";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.fadmin_FormClosed);
             this.tabPage1.ResumeLayout(false);
-            this.tabPage1.PerformLayout();
             this.panel53.ResumeLayout(false);
             this.panel53.PerformLayout();
             this.panel41.ResumeLayout(false);
@@ -2422,7 +2394,6 @@
             this.panel52.ResumeLayout(false);
             this.panel52.PerformLayout();
             this.panel30.ResumeLayout(false);
-            this.panel30.PerformLayout();
             this.panel31.ResumeLayout(false);
             this.panel31.PerformLayout();
             this.panel34.ResumeLayout(false);
@@ -2440,7 +2411,6 @@
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             this.panel29.ResumeLayout(false);
-            this.panel29.PerformLayout();
             this.panel32.ResumeLayout(false);
             this.panel32.PerformLayout();
             this.panel33.ResumeLayout(false);
@@ -2453,7 +2423,8 @@
             this.panel2.ResumeLayout(false);
             this.panel2.PerformLayout();
             this.panel22.ResumeLayout(false);
-            this.panel22.PerformLayout();
+            this.panel21.ResumeLayout(false);
+            this.panel21.PerformLayout();
             this.panel65.ResumeLayout(false);
             this.panel65.PerformLayout();
             this.panel23.ResumeLayout(false);
@@ -2471,7 +2442,6 @@
             this.panel49.ResumeLayout(false);
             this.panel49.PerformLayout();
             this.panel14.ResumeLayout(false);
-            this.panel14.PerformLayout();
             this.panel40.ResumeLayout(false);
             this.panel40.PerformLayout();
             this.panel16.ResumeLayout(false);
@@ -2492,7 +2462,6 @@
             this.panel51.PerformLayout();
             this.panel5.ResumeLayout(false);
             this.panel4.ResumeLayout(false);
-            this.panel4.PerformLayout();
             this.panel71.ResumeLayout(false);
             this.panel71.PerformLayout();
             this.panel6.ResumeLayout(false);
@@ -2517,7 +2486,6 @@
             this.panel57.PerformLayout();
             this.panel58.ResumeLayout(false);
             this.panel59.ResumeLayout(false);
-            this.panel59.PerformLayout();
             this.panel61.ResumeLayout(false);
             this.panel61.PerformLayout();
             this.panel62.ResumeLayout(false);
@@ -2528,6 +2496,8 @@
             this.panel64.PerformLayout();
             this.panel66.ResumeLayout(false);
             this.panel66.PerformLayout();
+            this.panel68.ResumeLayout(false);
+            this.panel68.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -2725,13 +2695,12 @@
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.CheckBox chboxTTP_Phong;
         private System.Windows.Forms.Button btnXem_DV;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox6;
         private System.Windows.Forms.ComboBox cbTTTP_Phong;
+        private System.Windows.Forms.Panel panel21;
+        private System.Windows.Forms.CheckBox cbStatus_DV;
+        private System.Windows.Forms.Label label38;
+        private System.Windows.Forms.Panel panel68;
+        private System.Windows.Forms.CheckBox cbSD_Khach;
+        private System.Windows.Forms.Label label43;
     }
 }

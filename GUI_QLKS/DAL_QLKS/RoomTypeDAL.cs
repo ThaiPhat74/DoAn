@@ -24,14 +24,24 @@ namespace DAL_QLKS
             {
                 _conn.Open();
 
-                string query = string.Format("EXEC dbo.ThemLoaiPhong @TenLoai = {0},@MoTa = {1},@SoGiuong = {2},@TienTheoGio = {3},@TienTheoNgay = {4}  ",
-                    rt.Ten,rt.Mota,rt.Sogiuong,rt.Gio,rt.Ngay);
-                SqlCommand cmd = new SqlCommand(query, _conn);
+                //string query = string.Format("EXEC dbo.ThemLoaiPhong @TenLoai = {0},@MoTa = {1},@SoGiuong = {2},@TienTheoGio = {3},@TienTheoNgay = {4}  ",
+                //    rt.Ten,rt.Mota,rt.Sogiuong,rt.Gio,rt.Ngay);
+                //SqlCommand cmd = new SqlCommand(query, _conn);
 
-                if (cmd.ExecuteNonQuery() > 0)
-                {
-                    return true;
-                }
+                //if (cmd.ExecuteNonQuery() > 0)
+                //{
+                //    return true;
+                //}
+
+                SqlCommand cmd = new SqlCommand("EXEC dbo.ThemLoaiPhong @TenLoai ,@MoTa ,@SoGiuong ,@TienTheoGio ,@TienTheoNgay  ", _conn);
+
+                cmd.Parameters.AddWithValue("@TenLoai", rt.Ten);
+                cmd.Parameters.AddWithValue("@MoTa", rt.Mota);
+                cmd.Parameters.AddWithValue("@SoGiuong", rt.Sogiuong);
+                cmd.Parameters.AddWithValue("@TienTheoGio", rt.Gio);
+                cmd.Parameters.AddWithValue("@TienTheoNgay", rt.Ngay);
+                int result = cmd.ExecuteNonQuery(); _conn.Close();
+                return result > 0;
             }
             catch (Exception ex) { }
             finally { _conn.Close(); }
@@ -42,12 +52,23 @@ namespace DAL_QLKS
             try
             {
                 _conn.Open();
-                string SQL = string.Format("EXEC dbo.SuaLoaiPhong @TenLoai = {0},@MoTa = {1},@SoGiuong = {2}, @TienTheoGio = {3}, @TienTheoNgay = {4}, @Ma = {5} ",
-                                            rt.Ten, rt.Mota, rt.Sogiuong, rt.Gio, rt.Ngay, rt.Id);
+                //string SQL = string.Format("EXEC dbo.SuaLoaiPhong @TenLoai = {0},@MoTa = {1},@SoGiuong = {2}, @TienTheoGio = {3}, @TienTheoNgay = {4}, @Ma = {5} ",
+                //                            rt.Ten, rt.Mota, rt.Sogiuong, rt.Gio, rt.Ngay, rt.Id);
 
-                SqlCommand cmd = new SqlCommand(SQL, _conn);
-                if (cmd.ExecuteNonQuery() > 0)
-                    return true;
+                //SqlCommand cmd = new SqlCommand(SQL, _conn);
+                //if (cmd.ExecuteNonQuery() > 0)
+                //    return true;
+
+                SqlCommand cmd = new SqlCommand("EXEC dbo.SuaLoaiPhong @TenLoai ,@MoTa ,@SoGiuong , @TienTheoGio , @TienTheoNgay , @Ma ", _conn);
+
+                cmd.Parameters.AddWithValue("@TenLoai", rt.Ten);
+                cmd.Parameters.AddWithValue("@MoTa", rt.Mota);
+                cmd.Parameters.AddWithValue("@SoGiuong", rt.Sogiuong);
+                cmd.Parameters.AddWithValue("@TienTheoGio", rt.Gio);
+                cmd.Parameters.AddWithValue("@TienTheoNgay", rt.Ngay);
+                cmd.Parameters.AddWithValue("@Ma", rt.Id);
+                int result = cmd.ExecuteNonQuery(); _conn.Close();
+                return result > 0;
             }
             catch (Exception e) { }
             finally { _conn.Close(); }

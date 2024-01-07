@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace DTO
 {
-    internal class Sale
+    public class Sale
     {
         private int _maDoanhThu;
         private float _tongTien;

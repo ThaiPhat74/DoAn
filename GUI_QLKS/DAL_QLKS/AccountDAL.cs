@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net.NetworkInformation;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -19,11 +20,24 @@ namespace DAL_QLKS
         }
        public AccountDAL() { }
 
+        public string HashPass(string text)
+        {
+            MD5 md5 = MD5.Create();
+            byte[] temp = Encoding.ASCII.GetBytes(text);
+            byte[] hashData = md5.ComputeHash(temp);
+            string hashPass = "";
+            foreach (var item in hashData)
+            {
+                hashPass += item.ToString("x2");
+            }
+            return hashPass;
+        }
         public bool Login(string username, string password) 
         {
+            string hashPass = HashPass(password);
             string query = "USP_Login @acc , @pass ";
             
-            DataTable result = DataProvider.Instance.ExecuteQuery(query,new object[] {username,password});
+            DataTable result = DataProvider.Instance.ExecuteQuery(query,new object[] {username,hashPass});
             return result.Rows.Count > 0;
         }
         public DataTable getTaiKhoan()
@@ -41,9 +55,12 @@ namespace DAL_QLKS
 
                 SqlCommand cmd = new SqlCommand("EXEC dbo.ThemTaiKhoan @MaNV ,@TenDN, @MK, @PQ", _conn);
 
+                string hashPass = HashPass(account.MatKhau);
+
+
                 cmd.Parameters.AddWithValue("@MaNV", account.MaNhanVien);
                 cmd.Parameters.AddWithValue("@TenDN", account.TenDangNhap);
-                cmd.Parameters.AddWithValue("@MK", account.MatKhau);
+                cmd.Parameters.AddWithValue("@MK", hashPass);
                 cmd.Parameters.AddWithValue("@PQ", account.PhanQuyen);
                 int result = cmd.ExecuteNonQuery(); _conn.Close();
                 return result > 0;
@@ -64,9 +81,12 @@ namespace DAL_QLKS
                 //    return true;
                 SqlCommand cmd = new SqlCommand("EXEC dbo.SuaTaiKhoan @MaNV , @TenDN,@MK ,@PQ, @MaTK", _conn);
 
+                string hashPass = HashPass(account.MatKhau);
+
+
                 cmd.Parameters.AddWithValue("@MaNV", account.MaNhanVien);
                 cmd.Parameters.AddWithValue("@TenDN", account.TenDangNhap);
-                cmd.Parameters.AddWithValue("@MK", account.MatKhau);
+                cmd.Parameters.AddWithValue("@MK", hashPass);
                 cmd.Parameters.AddWithValue("@PQ", account.PhanQuyen);
                 cmd.Parameters.AddWithValue("@MaTK", account.MaTaiKhoan);
                 int result = cmd.ExecuteNonQuery(); _conn.Close();

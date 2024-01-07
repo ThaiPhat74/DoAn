@@ -80,6 +80,7 @@
             this.txtPass.Size = new System.Drawing.Size(288, 38);
             this.txtPass.TabIndex = 2;
             this.txtPass.UseSystemPasswordChar = true;
+            this.txtPass.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtPass_KeyPress);
             // 
             // label2
             // 
@@ -143,7 +144,7 @@
             this.btnLogin.TabIndex = 3;
             this.btnLogin.Text = "Đăng nhập";
             this.btnLogin.UseVisualStyleBackColor = true;
-            this.btnLogin.Click += new System.EventHandler(this.button1_Click);
+            this.btnLogin.Click += new System.EventHandler(this.btnLogin_Click);
             // 
             // frmLog
             // 

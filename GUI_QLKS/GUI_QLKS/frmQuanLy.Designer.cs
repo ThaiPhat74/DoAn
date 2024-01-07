@@ -30,8 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
-            this.adminToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.quảnLýThuêPhòngToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuCSVC = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuDV = new System.Windows.Forms.ToolStripMenuItem();
             this.pnlTrangThai = new System.Windows.Forms.Panel();
             this.btnDangXuat = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -40,7 +40,6 @@
             this.cbRoomFrom = new System.Windows.Forms.ComboBox();
             this.btnChuyenPhong = new System.Windows.Forms.Button();
             this.cbRoomTo = new System.Windows.Forms.ComboBox();
-            this.btnResetRoom = new System.Windows.Forms.Button();
             this.lbTenDangNhap = new System.Windows.Forms.Label();
             this.flpnPhong = new System.Windows.Forms.FlowLayoutPanel();
             this.panel1 = new System.Windows.Forms.Panel();
@@ -53,28 +52,43 @@
             // 
             // menuStrip1
             // 
+            this.menuStrip1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.menuStrip1.Dock = System.Windows.Forms.DockStyle.Left;
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.adminToolStripMenuItem,
-            this.quảnLýThuêPhòngToolStripMenuItem});
+            this.menuCSVC,
+            this.menuDV});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1027, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(155, 570);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
-            // adminToolStripMenuItem
+            // menuCSVC
             // 
-            this.adminToolStripMenuItem.Name = "adminToolStripMenuItem";
-            this.adminToolStripMenuItem.Size = new System.Drawing.Size(136, 20);
-            this.adminToolStripMenuItem.Text = "Quản lý cơ sở vật chất";
-            this.adminToolStripMenuItem.Click += new System.EventHandler(this.adminToolStripMenuItem_Click);
+            this.menuCSVC.AutoSize = false;
+            this.menuCSVC.BackColor = System.Drawing.SystemColors.Control;
+            this.menuCSVC.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuCSVC.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.menuCSVC.Margin = new System.Windows.Forms.Padding(10);
+            this.menuCSVC.Name = "menuCSVC";
+            this.menuCSVC.Padding = new System.Windows.Forms.Padding(50);
+            this.menuCSVC.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.A)));
+            this.menuCSVC.Size = new System.Drawing.Size(129, 70);
+            this.menuCSVC.Text = "Quản lý cơ sở vật chất";
+            this.menuCSVC.ToolTipText = "Chỉ dành cho admin";
+            this.menuCSVC.Click += new System.EventHandler(this.adminToolStripMenuItem_Click);
             // 
-            // quảnLýThuêPhòngToolStripMenuItem
+            // menuDV
             // 
-            this.quảnLýThuêPhòngToolStripMenuItem.Name = "quảnLýThuêPhòngToolStripMenuItem";
-            this.quảnLýThuêPhòngToolStripMenuItem.Size = new System.Drawing.Size(123, 20);
-            this.quảnLýThuêPhòngToolStripMenuItem.Text = "Quản lý các dịch vụ";
-            this.quảnLýThuêPhòngToolStripMenuItem.Click += new System.EventHandler(this.quảnLýThuêPhòngToolStripMenuItem_Click);
+            this.menuDV.AutoSize = false;
+            this.menuDV.BackColor = System.Drawing.SystemColors.Control;
+            this.menuDV.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.menuDV.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.menuDV.Name = "menuDV";
+            this.menuDV.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
+            this.menuDV.Size = new System.Drawing.Size(129, 70);
+            this.menuDV.Text = "Quản lý các dịch vụ";
+            this.menuDV.Click += new System.EventHandler(this.menuDV_Click);
             // 
             // pnlTrangThai
             // 
@@ -83,18 +97,17 @@
             this.pnlTrangThai.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.pnlTrangThai.Controls.Add(this.btnDangXuat);
             this.pnlTrangThai.Controls.Add(this.groupBox1);
-            this.pnlTrangThai.Controls.Add(this.btnResetRoom);
             this.pnlTrangThai.Controls.Add(this.lbTenDangNhap);
-            this.pnlTrangThai.Location = new System.Drawing.Point(12, 453);
+            this.pnlTrangThai.Location = new System.Drawing.Point(158, 465);
             this.pnlTrangThai.Name = "pnlTrangThai";
-            this.pnlTrangThai.Size = new System.Drawing.Size(1003, 101);
+            this.pnlTrangThai.Size = new System.Drawing.Size(881, 101);
             this.pnlTrangThai.TabIndex = 2;
             // 
             // btnDangXuat
             // 
             this.btnDangXuat.BackgroundImage = global::GUI_QLKS.Properties.Resources.LogOut;
             this.btnDangXuat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnDangXuat.Location = new System.Drawing.Point(902, 32);
+            this.btnDangXuat.Location = new System.Drawing.Point(761, 32);
             this.btnDangXuat.Name = "btnDangXuat";
             this.btnDangXuat.Size = new System.Drawing.Size(48, 43);
             this.btnDangXuat.TabIndex = 11;
@@ -109,9 +122,9 @@
             this.groupBox1.Controls.Add(this.cbRoomFrom);
             this.groupBox1.Controls.Add(this.btnChuyenPhong);
             this.groupBox1.Controls.Add(this.cbRoomTo);
-            this.groupBox1.Location = new System.Drawing.Point(3, 5);
+            this.groupBox1.Location = new System.Drawing.Point(7, 5);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(380, 93);
+            this.groupBox1.Size = new System.Drawing.Size(376, 93);
             this.groupBox1.TabIndex = 10;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Chuyển phòng";
@@ -144,6 +157,7 @@
             // 
             // btnChuyenPhong
             // 
+            this.btnChuyenPhong.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btnChuyenPhong.Location = new System.Drawing.Point(261, 27);
             this.btnChuyenPhong.Name = "btnChuyenPhong";
             this.btnChuyenPhong.Size = new System.Drawing.Size(104, 48);
@@ -160,23 +174,11 @@
             this.cbRoomTo.Size = new System.Drawing.Size(121, 21);
             this.cbRoomTo.TabIndex = 9;
             // 
-            // btnResetRoom
-            // 
-            this.btnResetRoom.BackgroundImage = global::GUI_QLKS.Properties.Resources.reset;
-            this.btnResetRoom.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
-            this.btnResetRoom.Location = new System.Drawing.Point(837, 32);
-            this.btnResetRoom.Name = "btnResetRoom";
-            this.btnResetRoom.Size = new System.Drawing.Size(48, 43);
-            this.btnResetRoom.TabIndex = 6;
-            this.toolTip1.SetToolTip(this.btnResetRoom, "Reset Phòng");
-            this.btnResetRoom.UseVisualStyleBackColor = true;
-            this.btnResetRoom.Click += new System.EventHandler(this.btnResetRoom_Click);
-            // 
             // lbTenDangNhap
             // 
             this.lbTenDangNhap.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.lbTenDangNhap.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbTenDangNhap.Location = new System.Drawing.Point(630, 41);
+            this.lbTenDangNhap.Location = new System.Drawing.Point(507, 38);
             this.lbTenDangNhap.Name = "lbTenDangNhap";
             this.lbTenDangNhap.Size = new System.Drawing.Size(121, 30);
             this.lbTenDangNhap.TabIndex = 3;
@@ -190,15 +192,15 @@
             this.flpnPhong.AutoScroll = true;
             this.flpnPhong.Location = new System.Drawing.Point(3, 3);
             this.flpnPhong.Name = "flpnPhong";
-            this.flpnPhong.Size = new System.Drawing.Size(997, 414);
+            this.flpnPhong.Size = new System.Drawing.Size(875, 453);
             this.flpnPhong.TabIndex = 0;
             // 
             // panel1
             // 
             this.panel1.Controls.Add(this.flpnPhong);
-            this.panel1.Location = new System.Drawing.Point(12, 27);
+            this.panel1.Location = new System.Drawing.Point(158, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1003, 420);
+            this.panel1.Size = new System.Drawing.Size(881, 459);
             this.panel1.TabIndex = 3;
             // 
             // frmQuanLy
@@ -206,7 +208,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(1027, 566);
+            this.ClientSize = new System.Drawing.Size(1051, 570);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.pnlTrangThai);
             this.Controls.Add(this.menuStrip1);
@@ -214,8 +216,8 @@
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "frmQuanLy";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "frmQuanLy";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmQuanLy_FormClosing);
+            this.Text = "Quản lý";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.frmQuanLy_FormClosed);
             this.Load += new System.EventHandler(this.frmQuanLy_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -231,11 +233,10 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip1;
-        private System.Windows.Forms.ToolStripMenuItem adminToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuCSVC;
         private System.Windows.Forms.Panel pnlTrangThai;
         private System.Windows.Forms.Label lbTenDangNhap;
-        private System.Windows.Forms.ToolStripMenuItem quảnLýThuêPhòngToolStripMenuItem;
-        private System.Windows.Forms.Button btnResetRoom;
+        private System.Windows.Forms.ToolStripMenuItem menuDV;
         private System.Windows.Forms.Button btnChuyenPhong;
         private System.Windows.Forms.FlowLayoutPanel flpnPhong;
         private System.Windows.Forms.Panel panel1;
